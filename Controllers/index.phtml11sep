@@ -1,0 +1,546 @@
+<?php
+$emailChangesNamespace = new Zend_Session_Namespace('user_email_changes');
+$email_confirm_msg_popup = $emailChangesNamespace->confrim;
+$emailChangesNamespace->confrim = false;
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="HandheldFriendly" content="True" />
+        <meta name="MobileOptimized" content="300" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+            <meta name="format-detection" content="telephone=no">
+                <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11"  />
+                <title><?php echo $this->translate('index_txt_83'); ?></title>
+                <link href="<?php echo $this->makeUrl('/css/bootstrap.min.css'); ?>" rel="stylesheet" type="text/css" />
+                <link href="<?php echo $this->makeUrl('/css/ui/jquery-ui.min.css'); ?>" rel="stylesheet" type="text/css" />
+                <link href="<?php echo $this->makeUrl('/css/stylesheet1.css'); ?>" rel="stylesheet" type="text/css" />
+                <script type="text/javascript" src="<?php echo $this->makeUrl('/js/jquery-1.11.2.min.js'); ?>"></script> 
+                <script type="text/javascript" src="<?php echo $this->makeUrl('/js/jquery-ui.min.js'); ?>"></script> 
+                <script src="<?php echo $this->makeUrl('/js/owl.carousel.min.js'); ?>"></script> 
+                <script src="<?php echo $this->makeUrl('/js/jquery.validate.min.js'); ?>"></script> 
+                <script type="text/javascript" src="/js/jstz.min.js"></script>
+                <?php
+                $config = Zend_Controller_Front::getInstance()->getParam('bootstrap');
+                $apiKey = $config->getOption("quickblox_details_new");
+                $apiKey['app_id'] = $apiKey['app_id']; //"9361";
+                $apiKey['auth_key'] = $apiKey['auth_key']; //"h4GL7ABbpGVTBgV";
+                $apiKey['auth_secret'] = $apiKey['auth_secret']; //"Lqf9MaZjuce9Cen";
+                ?>
+                <meta name="google-site-verification" content="X68fKp7vthvWYwOg5jFyhtD44rFX134HVoB1sqX4TyA" />
+                <style type="text/css">
+                    
+                    #header .logo a{
+                        display:block;
+                        position:absolute;
+                        width:100%;
+                        height:100%;
+                        text-indent:-9999px;
+                        background-image:url(http://www.wa-app.com/new_images/<?php echo $this->translate('image_link_4'); ?>);
+                        background-repeat:no-repeat;
+                        background-size:100% 100%;
+                    }
+
+                    // }
+                </style>
+                </head>
+
+                <body>
+                    <!--Main Wrapper Starts-->
+                    <div class="wrapBody">
+                        <div class="mainWrapper">
+                            <!--Header Starts-->
+                            <header>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="logo"><a href="index" title="WA-app"><img src="/new_images/logo.png" alt="" /></a></div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="logo2">
+                                        <!--    	<a href="https://www.indiegogo.com/projects/all-in-one-wa-app-what-s-after-happening-now/x/4003395" target="_blank" title="Indiegogo campaign"><img src="images/indiegogo.jpg" alt="" /></a>-->
+                                            </div>
+                                        </div>
+                                        <?php if (!$this->loggedUserRow): ?>
+                                            <div class="col-sm-6 loginFrm">
+                                                <div class="loginBtn">Click here to login</div>
+                                                <div class="closeForm">x</div>
+                                                <form method="post" id="login_form" autocomplete="off" action="" onsubmit="return validateLoginForm();">
+                                                    <span <?php if(isset($this->errors['login_user_name'])){?>style="display:block!important;"<?php }?> class="error login_error" onclick="$(this).fadeOut();"><label id="login_user_name_error" > <?php echo isset($this->errors['login_user_name']) ? $this->errors['login_user_name'] : "Either Email/Phone or password is incorrect"; ?> </label></span>
+                                                    <div class="col-xs-10">
+                                                        <div class="input first">
+                                                            <input type="text" name="login_user_name" class="required" tabindex="1" placeholder="<?php echo $this->translate('email_phone'); ?>" id="login_user_name" value="<?php echo $this->request->getPost('login_user_name') ?>" />
+<!--                                                            <br><label class="error" id="login_user_name_error">  </label>-->
+                                                        </div> 
+                                                        <div class="input">
+                                                            <input type="password" name="login_user_password" placeholder="<?php echo $this->translate('password'); ?>" tabindex="2" id="login_user_password" value="" />
+<!--                                                            <br><label class="error" id="login_user_password_error"><?php echo isset($this->errors['login_user_password ']) ? $this->errors['login_user_password'] : "" ?> </label>-->
+                                                        </div>
+                                                        <div class="input first"><input type="checkbox" name="rememberMe" id="rememberMe" value="">
+                                                                <label for="logged"><?php echo $this->translate('keep_login'); ?></label></div>
+
+                                                        <div class="input">
+                                                            <p><a href="javascript:void(0)" id="forgot_pwd_link" onclick="popupOpen('forgotpass');"><?php echo $this->translate('forgot_password'); ?></a> </p></div>
+                                                    </div>
+                                                    <div class="col-xs-2">   
+                                                        <input type="submit" name="" tabindex="3" value="<?php echo $this->translate('login'); ?>" class="btn signin">
+                                                    </div>
+                                                </form>
+                                            <?php endif ?>
+                                            <div class="lanWrap">
+                                                <div class="lanButton"><span class="icon"></span> <?php echo $this->setActiveLanguage(); ?> <span class="arrow"></span> </div>
+                                                <div class="lanBox">
+                                                    <div class="lbTitle"><span class="icon"></span><?php echo $this->setActiveLanguage(); ?><span class="arrow"></span></div>
+                                                    <div class="lanList">
+                                                        <ul class="clearfix">
+                                                            <li class="active"><a href="?l=en"><img src="www/images/flags/en.gif" alt=""/> English</a></li>
+                                                            <li><a href="?l=es"><img src="www/images/flags/es.gif" alt=""/> Español</a></li>
+                                                            <li><a href="?l=ar"><img src="www/images/flags/ab.gif" alt=""/> العربية</a></li>
+                                                            <li><a href="?l=de"><img src="www/images/flags/de.gif" alt=""/> Deutsch</a></li>
+                                                            <li><a href="?l=nl"><img src="www/images/flags/nl.gif" alt=""/> Nederlands</a></li>
+                                                            <li><a href="?l=it"><img src="www/images/flags/it.gif" alt=""/> Italiano</a></li>
+                                                            <li><a href="?l=pt_br"><img src="www/images/flags/br.gif" alt=""/> Brasileiro</a></li>
+                                                            <li><a href="?l=tr"><img src="www/images/flags/tr.gif" alt=""/> Türkçe</a></li>
+                                                            <li><a href="?l=id"><img src="www/images/flags/id.gif" alt=""/> Bahasa Indonesia</a></li>
+                                                            <li><a href="?l=zh_tw"><img src="www/images/flags/mm.gif" alt=""/> 繁體中文</a></li>
+                                                            <li><a href="?l=fr"><img src="www/images/flags/fr.gif" alt=""/> Français</a></li>
+                                                            <li><a href="?l=ja"><img src="www/images/flags/jp.gif" alt=""/> 日本語</a></li>
+                                                            <li><a href="?l=zh_cn"><img src="www/images/flags/cn.gif" alt=""/> 简体中文</a></li>
+                                                            <li><a href="?l=ko"><img src="www/images/flags/ko.gif" alt=""/> 한국어</a></li>
+                                                            <li><a href="?l=th"><img src="www/images/flags/th.gif" alt=""/> ภาษาไทย</a></li>
+                                                            <li><a href="?l=pl"><img src="www/images/flags/pl.gif" alt=""/> Polski</a></li>
+                                                            <li><a href="?l=vi"><img src="www/images/flags/vn.gif" alt=""/> Tiếng Việt</a></li>
+                                                            <li><a href="?l=cs"><img src="www/images/flags/cz.gif" alt=""/> Česky</a></li>
+                                                            <li><a href="?l=da"><img src="www/images/flags/dk.gif" alt=""/> Dansk</a></li>
+                                                            <li><a href="?l=lv"><img src="www/images/flags/lv.gif" alt=""/> Latviešu</a></li>
+                                                            <li><a href="?l=sk"><img src="www/images/flags/sv.gif" alt=""/> Slovenčina</a></li>
+                                                            <li><a href="?l=ro"><img src="www/images/flags/ro.gif" alt=""/> Română</a></li>
+                                                            <li><a href="?l=el"><img src="www/images/flags/il.gif" alt=""/> Ελληνικά</a></li>
+                                                            <li><a href="?l=bg"><img src="www/images/flags/bg.gif" alt=""/> Български</a></li>
+                                                            <li><a href="?l=hr"><img src="www/images/flags/hr.gif" alt=""/> Hrvatski</a></li>
+                                                            <li><a href="?l=ms"><img src="www/images/flags/my.gif" alt=""/> Bahasa Melayu</a></li>
+                                                            <li><a href="?l=sr"><img src="www/images/flags/sb.gif" alt=""/> српски</a></li>
+                                                            <li><a href="?l=ru"><img src="www/images/flags/ru.gif" alt=""/> Pусский</a></li>
+                                                            <li><a href="?l=fi"><img src="www/images/flags/fi.gif" alt=""/> suomi</a></li>
+                                                            <li><a href="?l=hu"><img src="www/images/flags/hu.gif" alt=""/> Magyar</a></li>
+                                                            <li><a href="?l=fa"><img src="www/images/flags/fa.gif" alt=""/> فارسی</a></li>
+                                                            <li><a href="?l=nb"><img src="www/images/flags/no.gif" alt=""/> Norsk</a></li>
+                                                            <li><a href="?l=mk"><img src="www/images/flags/mk.gif" alt=""/> Македонски</a></li>
+                                                            <li><a href="?l=ca"><img src="www/images/flags/ct.gif" alt=""/> Català</a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="lanFoot"><a href="mailto:translate@wa-app.com?subject=Help translate All-in-WA"><?php echo $this->translate('index_txt_82'); ?></a></div>
+                                                </div>
+                                            </div>
+                                        </div>        
+
+                                    </div>
+                                </div>
+                            </header>
+                            <!--Header Ends-->
+
+                            <!--Banner Starts-->
+                            <section id="banner">
+                                <div class="item webW banner1">
+                                    <div class="ban_pic"><img src="/new_images/ban_pic1.png" alt="" /></div>
+                                    <div class="ban_content">
+                                        <div class="bc_bg">
+                                            <div class="title"><?php echo $this->translate('index_txt_1'); ?></div>
+                                            <div class="txt"><?php echo $this->translate('index_txt_2'); ?></div>
+                                            <div class="bc_signup clearfix"><a style="background: url(http://www.wa-app.com/new_images/<?php echo $this->translate('image_link_3'); ?>) no-repeat!important;" href="javascript:void(0)" id="signup_btn" onClick="popupOpen('signup')">Sign-Up Now</a></div>
+                                        </div>
+                                        <div class="storeURL">
+                                            <ul class="clearfix">
+                                                <li class="app_store"><a href="https://itunes.apple.com/us/app/wa-app/id982136038?ls=1&mt=8"><img src="http://www.wa-app.com/new_images/<?php echo $this->translate('image_link_1'); ?>" alt="" /></a></li>
+                                                <li class="google_play"><a href="https://play.google.com/store/apps/details?id=com.wa_app"><img src="http://www.wa-app.com/new_images/<?php echo $this->translate('image_link_2'); ?>" alt="" /></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item webW banner2">
+                                    <div class="ban_pic"><img src="/new_images/ban_pic2.png" alt="" /></div>
+                                    <div class="ban_content">
+                                        <div class="bc_bg">
+                                            <div class="title"><?php echo $this->translate('index_txt_3'); ?></div>
+                                            <div class="txt"><?php echo $this->translate('index_txt_4'); ?></div>
+                                            <div class="bc_signup clearfix"><a style="background: url(http://www.wa-app.com/new_images/<?php echo $this->translate('image_link_3'); ?>) no-repeat!important;" href="javascript:void(0)" id="signup_btn" onClick="popupOpen('signup')">Sign-Up Now</a></div>
+                                        </div>
+                                        <div class="storeURL">
+                                            <ul class="clearfix">
+                                                <li class="app_store"><a href="https://itunes.apple.com/us/app/wa-app/id982136038?ls=1&mt=8"><img src="http://www.wa-app.com/new_images/<?php echo $this->translate('image_link_1'); ?>" alt="" /></a></li>
+                                                <li class="google_play"><a href="https://play.google.com/store/apps/details?id=com.wa_app"><img src="http://www.wa-app.com/new_images/<?php echo $this->translate('image_link_2'); ?>" alt="" /></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item webW banner3">
+                                    <div class="ban_pic"><img src="/new_images/ban_pic3.png" alt="" /></div>
+                                    <div class="ban_content">
+                                        <div class="bc_bg">
+                                            <div class="title"><?php echo $this->translate('index_txt_3'); ?></div>
+                                            <div class="txt"><?php echo $this->translate('index_txt_4'); ?></div>
+                                            <div class="bc_signup clearfix"><a style="background: url(http://www.wa-app.com/new_images/<?php echo $this->translate('image_link_3'); ?>) no-repeat!important;" href="javascript:void(0)" id="signup_btn" onClick="popupOpen('signup')">Sign-Up Now</a></div>
+                                        </div>
+                                        <div class="storeURL">
+                                            <ul class="clearfix">
+                                                <li class="app_store"><a href="https://itunes.apple.com/us/app/wa-app/id982136038?ls=1&mt=8"><img src="http://www.wa-app.com/new_images/<?php echo $this->translate('image_link_1'); ?>" alt="" /></a></li>
+                                                <li class="google_play"><a href="https://play.google.com/store/apps/details?id=com.wa_app"><img src="http://www.wa-app.com/new_images/<?php echo $this->translate('image_link_2'); ?>" alt="" /></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <!--Banner Ends-->
+
+                            <!--What's New Starts-->
+<section id="whatsnew">
+    <div class="container">
+        <h2 class="wn_title"><?php echo $this->translate('index_txt_7');?></h2>
+        <p><?php echo $this->translate('index_txt_4');?></p>
+        <div class="wn_content">
+        <div class = 'sliderContainer' id="whatsNew">
+        <div class="item"> <a href="<?php echo $this->makeUrl('/help/features') ;?>#vip"><img src="/new_images/<?php echo $this->translate('image_link_10'); ?>" alt=""/></a> </div>
+        <div class="item"> <a href="<?php echo $this->makeUrl('/help/features') ;?>#chat"><img src="/new_images/<?php echo $this->translate('image_link_11'); ?>" alt=""/></a> </div>
+        <div class="item"> <a href="<?php echo $this->makeUrl('/help/features') ;?>#wa"><img src="/new_images/<?php echo $this->translate('image_link_12'); ?>" alt=""/></a> </div>
+        <div class="item"> <a href="<?php echo $this->makeUrl('/help/features') ;?>#sos"><img src="/new_images/<?php echo $this->translate('image_link_13'); ?>" alt=""/></a> </div>
+        <div class="item"> <a href="<?php echo $this->makeUrl('/help/features') ;?>#testament"><img src="/new_images/<?php echo $this->translate('image_link_14'); ?>" alt=""/></a> </div>
+        <div class="item"> <a href="<?php echo $this->makeUrl('/help/features') ;?>#voip"><img src="/new_images/<?php echo $this->translate('image_link_15'); ?>" alt=""/></a> </div>
+        <div class="item"> <a href="<?php echo $this->makeUrl('/help/features') ;?>#dating"><img src="/new_images/<?php echo $this->translate('image_link_16'); ?>" alt=""/></a> </div>
+        <div class="item"> <a href="<?php echo $this->makeUrl('/help/features') ;?>#classic"><img src="/new_images/<?php echo $this->translate('image_link_9'); ?>" alt=""/></a> </div>
+        </div>
+        <a href="javascript:void(0)" onClick="popupOpen('signup')" class="wn_signup"><img src="http://www.wa-app.com/new_images/<?php echo $this->translate('image_link_3'); ?>" alt="" /></a>
+        </div>
+    </div>
+</section>
+<!--What's New Ends-->
+
+                            <!--Video Reviews Starts-->
+                            <section id="video_review">
+                                <div class="container">
+                                    <div class="col-sm-5">
+                                        <div class="vr_title"><?php echo $this->translate('index_txt_9'); ?> <a href="https://www.youtube.com/channel/UCT3q2tjb0I4SSwTDYjyY3hQ" class="viewall" target="_blank"><?php echo $this->translate('index_txt_10'); ?></a></div>
+                                        <div class="videoFile">
+                                            <iframe width="420" height="275" src="https://www.youtube.com/embed/CnwbgobZt0k?rel=0" frameborder="0" allowfullscreen></iframe> </div>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <div class="vrv_box">
+                                            <div class="vr_title"><?php echo $this->translate('index_txt_11'); ?>
+                                                <div class="cr_social"><div class="addthis_native_toolbox"></div></div>
+                                            </div>
+                                            <div class="reviewData">
+                                                <div class="vticker">
+                                                    <ul>
+                                                        <li>
+                                                            <div class="vt_photo"><img src="/new_images/pic.jpg" alt=""/></div>
+                                                            <div class="vt_content">
+                                                                <h4>John Doe <span class="vr_rating rating1"></span></h4>
+                                                                <p>Awesome Application !! I really like the UI. Application is good, Very useful, easy to use and proved very effective for me.. Going to give it 3 star !!</p>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="vt_photo"><img src="/new_images/pic.jpg" alt=""/></div>
+                                                            <div class="vt_content">
+                                                                <h4>John Doe <span class="vr_rating rating2"></span></h4>
+                                                                <p>Awesome Application !! I really like the UI. Application is good, Very useful, easy to use and proved very effective for me.. Going to give it 3 star !!</p>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="vt_photo"><img src="/new_images/pic.jpg" alt=""/></div>
+                                                            <div class="vt_content">
+                                                                <h4>John Doe <span class="vr_rating rating3"></span></h4>
+                                                                <p>Awesome Application !! I really like the UI. Application is good, Very useful, easy to use and proved very effective for me.. Going to give it 3 star !!</p>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="vt_photo"><img src="/new_images/pic.jpg" alt=""/></div>
+                                                            <div class="vt_content">
+                                                                <h4>John Doe <span class="vr_rating rating4"></span></h4>
+                                                                <p>Awesome Application !! I really like the UI. Application is good, Very useful, easy to use and proved very effective for me.. Going to give it 3 star !!</p>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="vt_photo"><img src="/new_images/pic.jpg" alt=""/></div>
+                                                            <div class="vt_content">
+                                                                <h4>John Doe <span class="vr_rating rating5"></span></h4>
+                                                                <p>Awesome Application !! I really like the UI. Application is good, Very useful, easy to use and proved very effective for me.. Going to give it 3 star !!</p>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <!--Video Reviews Ends-->
+
+                            <!--Footer Starts-->
+                            <footer>
+                                <div class="fContent">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm-5">
+                                                <h4><?php echo $this->translate('index_txt_12'); ?></h4>
+                                                <p><strong>WA</strong> <?php echo $this->translate('index_txt_6'); ?>, <?php echo $this->translate('index_txt_6a'); ?>, <?php echo $this->translate('index_txt_6b'); ?> <?php echo $this->translate('index_txt_13'); ?> <a href="<?php echo $this->makeUrl('/help/features'); ?>"><?php echo $this->translate('index_txt_14'); ?>...</a></p>
+                                            </div>
+                                            <div class="col-sm-7">
+                                                <div class="col-xs-4">
+                                                    <h4>WA</h4>
+                                                    <ul class="clearfix">
+                                                        <li><a href="<?php echo $this->makeUrl('/help/features'); ?>"><?php echo $this->translate('index_txt_15'); ?></a></li>
+                                                        <li><a target="_blank" href="<?php echo $this->makeUrl('/help/faq') ?>"><?php echo $this->translate('index_txt_16'); ?></a></li>
+                                                        <li><a target="_blank" href="<?php echo $this->makeUrl('/help/terms') ?>"><?php echo $this->translate('index_txt_17'); ?></a></li>
+                                                        <li><a target="_blank" href="<?php echo $this->makeUrl('/help/terms') ?>#privacy"><?php echo $this->translate('index_txt_18'); ?></a></li>
+                                                        <li><a href="#">Sitemap </a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-xs-4">
+                                                    <h4>Contact</h4>
+                                                    <ul class="clearfix">
+                                                        <li><a href="<?php echo $this->makeUrl('/help/contact') ?>"><?php echo $this->translate('index_txt_21'); ?></a></li>
+                                                        <li><a href="<?php echo $this->makeUrl('/help/aboutus') ?>"><?php echo $this->translate('index_txt_22'); ?></a></li>
+                                                        <li><a href="https://www.facebook.com/WAappbook" target="_blank"><?php echo $this->translate('index_txt_23'); ?></a></li>
+                                                        <li><a href="https://twitter.com/waapptweet" target="_blank"><?php echo $this->translate('index_txt_24'); ?></a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-xs-4">
+                                                    <h4><?php echo $this->translate('index_txt_25'); ?></h4>
+                                                    <ul class="clearfix">
+                                                        <li><a href="#"><?php echo $this->translate('index_txt_26'); ?></a></li>
+                                                        <li><a href="#"><?php echo $this->translate('index_txt_26a'); ?></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <p>&copy; 2015 <a href="/">WA-media</a>. <?php echo $this->translate('index_txt_27'); ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </footer>
+                            <!--Footer Ends-->
+
+                            <!--Sign Up Popup Starts Here-->
+                            <div class="bg_transpop" id="signup">
+                                <form id="signup_form" autocomplete="off" novalidate="novalidate">
+                                    <div class="overlay"></div>
+                                    <div class="contentpopWrap">
+                                        <div class="contentpop">
+                                            <div class="ajax-leader"></div>
+                                            <div class="closebtn" onclick="popupClose('signup');
+                                                    popupOpen('addCancelRegistration');"></div>
+
+                                            <div class="forget_heading"><?php echo $this->translate('index_txt_60');?></div>
+                                            <div class="inputvaluRow">
+
+                                                <input type="text" placeholder="<?php echo $this->translate('add_txt_14');?>" maxlength="50" name="userFullName" id="userFullName" class="name_filed required">
+                                            </div>
+                                            <label id="userFullName-error" class="error valid" for="userFullName"></label>
+                                            <div style="position:relative;">
+                                                <div class="inputvaluRow" style="margin-right:40px;">
+                                                    <input readonly type="text" class="nickname_filed required" id="userNickName" maxlength="50" name="userNickName" placeholder="<?php echo $this->translate('add_txt_15');?>" aria-required="true">
+                                                </div>
+
+                                                <div class="nickCheck active"></div>
+                                                <label id="userNickName-error" class="error valid" for="userNickName"></label>
+                                            </div>
+                                            <div class="inputvaluRow">
+                                                <input type="text" class="required email" placeholder="<?php echo $this->translate('add_txt_17');?>" maxlength="50" id="userEmail" name="userEmail" aria-required="true">
+                                            </div>
+                                            <label id="userEmail-error" class="error valid" for="userEmail"></label>
+
+                                            <div class="inputvaluRow1" id="cntryCode">
+                                                <div class="inputvaluRow2">
+                                                    <input type="text" class="required" id="userCountryCode" name="userCountryCode" onfocus="$('#country_code_list').fadeIn('fast');" onblur="$('#country_code_list').fadeOut('fast');" placeholder="+xx" aria-required="true">
+                                                      </div>
+                                                      <div id="country_code_list" class="countryCode" style="display:none;margin-top: 40px">
+                                                          <ul class="clearfix" id="signup_country_code">
+                                                              <?php foreach($this->countriesList as $countryData):?>
+                                                              <li class="country_name" id="<?php echo $countryData['min_nsn']."-".$countryData['max_nsn'] ?>" data="<?php echo $countryData['country_code'] ?>"> <?php echo $countryData['country_name'] ?></li>
+                                                              <?php endforeach ?>  
+                                                         </ul>
+                                                      </div>
+
+                                                <div class="inputvaluRow3" style="margin-top:8px;">
+                                                    <input type="text" class="required phone_number only_digit" placeholder="<?php echo $this->translate('add_txt_18');?>" id="userPhone" autocomplete="off" name="userPhone" aria-required="true">
+                                                </div>
+
+                                                
+                                            </div>
+                                            <label style="display: inline-block;margin-left: -103px" for="userCountryCode" class="error" id="userCountryCode-error"><?php echo $this->translate('index_txt_78');?></label>
+                                            <label style="display: inline-block;" for="userPhone" class="error" id="userPhone-error"><?php echo $this->translate('index_txt_78');?></label>
+                                            <div style="clear:both;"></div>
+                                            <div class="inputvaluRow">
+                                                <input type="password" class="required" placeholder="<?php echo $this->translate('password');?>" id="userPassword" name="userPassword" aria-required="true"><span class="passView"></span>
+                                            </div>
+                                            <label id="userPassword-error" class="error valid" for="userPassword"></label>
+                                            <div class="Security"><?php echo $this->translate('index_txt_41');?></div>
+                                            <div class="inputvaluRow">
+                                                <select class="select required" id="secQuestion" name="secQuestion" title="Question" aria-required="true" style="z-index: 10; opacity: 0;">
+                                                    <option><?php echo $this->translate('index_txt_61');?></option>
+                                                    <option><?php echo $this->translate('index_txt_62');?></option>
+                                                    <option><?php echo $this->translate('index_txt_63');?></option>
+                                                    <option><?php echo $this->translate('index_txt_64');?></option>
+                                                    <option><?php echo $this->translate('index_txt_65');?></option>
+                                                    <option><?php echo $this->translate('index_txt_66');?></option>
+                                                </select>
+                                            </div>
+                                            <label id="secQuestion-error" class="error valid" for="secQuestion"></label>
+
+                                            <div class="inputvaluRow">
+                                                <input type="text" class="required" id="secAnswer" name="secAnswer" placeholder="<?php echo $this->translate('index_txt_81');?>" aria-required="true">
+                                            </div>
+                                            <label id="secAnswer-error" class="error valid" for="secAnswer"></label>
+
+                                            <div class="inputCheck">
+                                                <div class="agree">
+                                                    <input type="checkbox" class="required" placeholder="Answer" id="is_accept" name="is_accept" aria-required="true">
+                                                </div>
+                                                <?php echo $this->translate('index_txt_67');?> <a href="<?php echo $this->makeUrl('/help/terms');?>" target="_blank"><?php echo $this->translate('index_txt_17');?></a>. </div>
+                                            <label id="is_accept-error" class="error valid" for="is_accept"></label>
+
+                                            <input type="hidden" id="accept_trustee_action" value="">   
+                                                <input type="hidden" id="accept_friend_action" value="">
+                                                    <div class="next" id="signup_next"><?php echo $this->translate('index_txt_42');?> </div>
+                                                    </div>
+                                                    </div>
+                                                    </form>
+                                                    </div>
+                                                    <!--Sign Up popup Ends Here-->
+
+                                                    <!--Close Registration Form Starts-->
+                                                    <div class="bg_transpop" id="addCancelRegistration">
+                                                        <div class="overlay"></div>
+                                                        <div class="contentpopWrap">
+                                                            <div class="contentpop">
+                                                                <p><?php echo $this->translate('index_txt_28');?></p>
+                                                                <span onclick="popupClose('addCancelRegistration');"><?php echo $this->translate('index_txt_29');?></span>
+                                                                <span onclick="popupClose('addCancelRegistration');
+                                                                        popupOpen('signup');"><?php echo $this->translate('index_txt_30');?></span>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <!--Close Registration Form Starts-->
+
+                                                    </div>
+                                                    </div>
+
+                                                    <!--Popup Start forgotten passsword Here-->
+                                                    <div class="bg_transpop" id="forgotpass">
+                                                        <div class="overlay"></div>
+                                                        <div class="contentpopWrap">
+                                                            <div class="contentpop">
+                                                                <div class="closebtn" onClick="popupClose('forgotpass');"></div>
+                                                                <form>
+                                                                    <div class="forget_heading"><?php echo $this->translate('index_txt_39'); ?></div>
+                                                                    <div class="please_enter"><?php echo $this->translate('index_txt_40'); ?></div>
+                                                                    <div class="inputvaluRow">
+                                                                        <input type="text" placeholder="<?php echo $this->translate('email_phone'); ?>" id="user_email_phn" name="user_email_phn" /><br>
+                                                                    </div>
+                                                                    <label id="user_email_phn_error" class="error" for="user_email_phn"></label>
+                                                                    <div class="hide" id="forgot_pwd_ans_sec">
+                                                                        <div class="Security"><?php echo $this->translate('index_txt_41'); ?></div>
+                                                                        <div class="inputvaluRow">
+                                                                            <input type="text" id="forgot_pwd_ques" readonly />
+                                                                        </div>
+                                                                        <div class="inputvaluRow">
+                                                                            <input type="text" placeholder="<?php echo $this->translate('index_txt_81'); ?>" id="forgot_pwd_ans"/>
+                                                                        </div>
+                                                                        <label id="forgot_pwd_ans_error" class="error" for="forgot_pwd_ans"></label>
+                                                                    </div>
+                                                                    <div class="next" id="forgot_pwd_btn"><?php echo $this->translate('index_txt_42'); ?> </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--Popup End Here--> 
+                                                    
+                                                    <!--Popup Start Verification Code Here-->
+<div class="bg_transpop" id="verification">
+  <div class="overlay"></div>
+  <div class="contentpopWrap">
+    <div class="contentpop">
+      <div class="closebtn" onClick="popupClose('verification');"></div>
+      <form>
+        <div class="forget_heading"><?php echo $this->translate('index_txt_51');?></div>
+        <div class="please_enter"><?php echo $this->translate('index_txt_52');?></div>
+        <div class="please_enter_key"><?php echo $this->translate('index_txt_53');?></div>
+        <div class="validation verification">
+          <input type="text" placeholder="&lowast;" id="veri_01" class="only_digit verification_digit" tabindex="1" maxlength="1" />
+        </div>
+        <div class="validation verification">
+          <input type="text" placeholder="&lowast;" id="veri_02" class="only_digit verification_digit" tabindex="2" maxlength="1" />
+        </div>
+        <div class="validation verification">
+          <input type="text" placeholder="&lowast;" id="veri_03" class="only_digit verification_digit" tabindex="3" maxlength="1" />
+        </div>
+        <div class="validation verification">
+          <input type="text" placeholder="&lowast;" id="veri_04" class="only_digit verification_digit" tabindex="4" maxlength="1" />
+        </div>
+        <label class="error" id="userPasscode-error">  </label>
+        <div style="clear:both;"></div>
+        <div class="next"><a id="re_acnt_very_btn" style="color: #fff;text-decoration: none" > <?php echo $this->translate('index_txt_54');?> </a></div>
+        <div class="please_enter_key"><?php echo $this->translate('index_txt_55');?></div>
+        <div style="clear:both;"></div>
+        <div class="next" id="verification_next"><?php echo $this->translate('index_txt_42');?> </div>
+     <!---   <div class="next" onClick="$('#verification').fadeOut('fast');popupOpen('addTrustee');">Next </div> --->
+        
+      </form>
+    </div>
+  </div>
+</div>
+<!--Popup End Here--> 
+<script src="<?php echo $this->makeUrl('/js/owl.carousel.min.js'); ?>"></script> 
+
+ <script src="<?php echo $this->makeUrl('/js/custom.js'); ?>"></script> 
+  <script src="<?php echo $this->makeUrl('/js/functions.js'); ?>"></script> 
+<script src="<?php echo $this->makeUrl('/js/signup.js'); ?>"></script> 
+<script>
+    var fullNameError   =   '<?php echo $this->translate('index_txt_68'); ?>';
+    var nickNameError   =   "<?php echo $this->translate('index_txt_75'); ?>";
+    var userPhoneError  =   "<?php echo $this->translate('index_txt_73'); ?>";
+    var requiredError   =   "<?php echo $this->translate('index_txt_78');?>";
+    var validEmail   =   "<?php echo $this->translate('email_txt_28');?>";
+    var fpPassCodeError =  "<?php echo $this->translate('index_txt_76'); ?>";
+    var passwordAnsError    = "<?php echo $this->translate('index_txt_78'); ?>";
+    var passwordError1 = "<?php echo $this->translate('index_txt_80'); ?>";
+    var passwordSuccess = "<?php echo $this->translate('index_txt_79'); ?>";
+    var baseUrl = "<?php echo $this->makeUrl();?>";
+    var successMessage = "<?php echo $this->translate('index_txt_71'); ?>";
+    var message2 ="<?php echo $this->translate('index_txt_72'); ?>";
+    var zeroError ="<?php echo $this->translate('index_txt_74'); ?>";
+    var passCode76="<?php echo $this->translate('index_txt_76'); ?>";
+    var emailErrorphn="<?php echo $this->translate('index_txt_77'); ?>";
+    var emailError2 ="<?php echo $this->translate('index_txt_78'); ?>";
+    var user_id;
+$(document).on("click",".nickCheck",function(){
+    if($(this).hasClass('active')){
+        $(this).removeClass('active');
+        if($("#hideNick").val()==''){
+         $("#hideNick").val($("#userNickName").val());
+      }
+       $("#userNickName").val($("#hideNick").val());
+        $("#userNickName").attr('readonly', false);
+    }else{
+        $("#userNickName").val();
+        $("#userNickName").attr('readonly', true);
+        $(this).addClass('active');
+        $("#userNickName").val($("#hideNick").val());
+    }
+});
+
+$(document).on("keyup","#userNickName",function(){
+   $("#hideNick").val($(this).val()); 
+});
+</script>
+<input type="text" style="display:none" id="hideNick"></input>
+<!-- Go to www.addthis.com/dashboard to customize your tools 
+<script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-54f1059217d7f92c" async></script>-->
+</body>
+</html>
