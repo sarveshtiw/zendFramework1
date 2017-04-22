@@ -1,0 +1,55 @@
+<!--Breadcrumb Starts-->
+<div class="breadcrumb clearfix">
+    <div class="col-xs-12">
+        <a href="#">Home</a>
+        <img src="/new_images/arrow_bred.png" width="22" height="9"/>
+        <span>Witness Request</span>    
+    </div>
+</div>
+<!--Breadcrumb Ends-->
+
+<!--Page Content Starts-->
+<div class="content clearfix myTestament check">
+    <div class="col-xs-12">
+        <div id="sucess_response"></div>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0"> 
+        <?php if(!empty($this->result)): ?>
+           <?php foreach($this->result as $row):  ?>
+            <tr>
+                <!-- <td><a href="<?php //echo $this->makeUrl('/testament/witness-request-view?id='.$row['witness_id']); ?>"><?php echo ucfirst($row['full_name']); ?> want to add ad a witness.</a></td>
+                <td>  
+                   <a href="<?php //echo $this->makeUrl('/testament/witness-request-view?id='.$row['witness_id']); ?>" class="btn" id="witenss-request-accepted" witness_id="<?php echo $row['witness_id']; ?>">Accept</a> 
+                   <a href="<?php //echo $this->makeUrl('/testament/cancel-witness?id='.$row['witness_id']); ?>" class="btn" id="witenss-request-rejected" witness_id="<?php echo $row['witness_id']; ?>">Reject</a>
+                </td>-->
+                <td><a href="<?php echo $this->makeUrl('/testament/witness-request-view'); ?>"><?php echo ucfirst($row['full_name']); ?> want to add ad a witness.</a></td>
+                <td>  
+                   <a href="javascript:void(0);" class="btn witenss-request-accepted" witness_id="<?php echo $this->waCommon()->setEncrypt($row['witness_id']); ?>">Accept</a> 
+                   <a href="javascript:void(0);" class="btn witenss-request-rejected" witness_id="<?php echo $this->waCommon()->setEncrypt($row['witness_id']); ?>">Reject</a>
+                </td>
+            </tr>
+            <?php endforeach; ?>   
+            <?php else: ?>
+            <tr>
+                <td colspan="2"> No records founds ..</td>
+            </tr>
+            <?php endif; ?>
+        </table>
+    </div>
+</div>
+<!--Page Content Ends-->  
+
+<!--Popup Start Confirm delete -->
+<div class="bg_transpop" id="witenssRequestRejectAlertPopup">
+    <div class="overlay"></div>
+    <div class="contentpopWrap">
+        <div class="contentpop">
+            <div class="closebtn" id="witenssRequestRejectAlertPopupClose"></div>
+            <div class="heading"><h1>Alert</h1></div>
+            <hr />
+            <p>Do you want to reject this request ?</p> <br />
+            <a href="javascript:void(0);" class="btn" id="witness-no">No</a> 
+            <a href="javascript:void(0);" class="btn" id="witness-yes" witness_id="">Yes</a>
+        </div>
+    </div>
+</div>
+<!-- Popup End Confirm delete -->

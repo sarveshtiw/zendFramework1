@@ -1,0 +1,769 @@
+<!--- start testament --->
+
+<!--Popup Start Add Witness Here-->
+<div class="bg_transpop" id="witnessAlertPopup">
+    <form id="signup_form" autocomplete="off">
+        <div class="overlay"></div>
+        <div class="contentpopWrap">
+            <div class="contentpop">
+                <div class="closebtn" id="witnessAlertPopupClose"></div>
+                <div class="heading"><h1>Alert</h1></div>
+                <hr />
+                <p>After sending out an invitation to witnesses you cannot make any further change to your WA-testament, do you want to invite your witness now or do you want to review your WA-testament?</p><br />
+                <a href="javascript:void(0);" class="btn" id="reviewBtn" onClick="">REVIEW</a> 
+                <a href="javascript:void(0);" class="btn" id="sendInvitationBtn" onclick="popupOpen('witnessAddForm');">SEND WITNESS INVITATION</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="bg_transpop" id="witnessAddForm">
+    <form id="signup_form" autocomplete="off">
+        <div class="overlay"></div>
+        <div class="contentpopWrap">
+            <div class="contentpop">
+                <div class="ajax-leader"></div>              
+                <form id="forgot_pwd_form">
+                    <div class="forget_heading">Add Witness Form</div>
+                    <div class="closebtn" id="witnessAddFormClose"></div>
+                    <?php if (!empty($this->friendsRowset)): ?>
+                    <?php //echo '<pre>'; print_r($this->friendsRowset);  ?>
+                    <select name="witness_name" id="user-search-box">
+                        <?php foreach ($this->friendsRowset as $friends): ?>
+                          <option value="<?php echo $friends->userId; ?>"><?php echo $friends->userNickName; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <?php endif; ?>
+                   <!--<input type="text" class="" id="user-search-box" name="witness_name" placeholder="Witness Name" />-->
+
+                    <div id="searchUserContainer"> 
+                    </div>
+                    <div class="inputvaluRow">
+                       <input type="text" class="" id="email" name="email" placeholder="WA Username/email" />
+                    </div>
+                    <div class="inputvaluRow">
+                       <input type="text" class="" id="email" name="email" placeholder="Option to Id type of your witness" />
+                    </div>
+                    <div class="inputvaluRow">
+                       <input type="text" class="" id="email" name="email" placeholder="Option to Id number of your witness" />   
+                    </div>         
+                    <input type="button" class="next" id="submit" name="submit" value="Send Invite" />
+                </form>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="bg_transpop" id="witnessAlertPopup">
+    <form id="signup_form" autocomplete="off">
+        <div class="overlay"></div>
+        <div class="contentpopWrap">
+            <div class="contentpop">
+                <div class="closebtn" id="witnessAlertPopupClose"></div>
+                <p>Witness confirmation count is less than two. You can not proceed forword until two witnesses will confirm </p><br />
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="bg_transpop" style="width:1000px; top:10px; left:200px;" id="pdfPreviewPopup">
+    <div class="overlay"></div>
+    <div class="contentpopWrap">
+        <div class="contentMaxpop">
+            <div class="closebtn" id="previewAlertPopupClose"></div>
+            <iframe class="preview-pdf-name" src="" width="800px" height="800px" scrolling="no"></iframe>
+        </div>
+    </div>
+</div>
+<!--Popup End Here-->
+
+<div class="pdfContainer">
+    <div class="pdfBody">   
+        <div class="tabWrap">
+            <div class="tabs_buttons">
+                <ul class="clearfix">
+                    <li class="active"><a href="javascript:void(0);">Step 1</a></li>
+                    <li><a href="javascript:void(0)">Step 2</a></li>
+                    <li><a href="javascript:void(0)">Step 3</a></li>
+                    <li><a href="javascript:void(0)">Step 4</a></li>
+                    <li><a href="javascript:void(0)">Step 5</a></li>
+                    <li><a href="javascript:void(0)">Step 6</a></li>
+                    <li><a href="javascript:void(0)">Step 7</a></li>
+                    <li><a href="javascript:void(0)">Step 8</a></li>
+               </ul>
+            </div>
+        </div>
+    </div>   
+    <form id="testamentForm" action="" method="post" enctype="multipart/form-data">            
+        <div class="stepFrm" id="first">
+            <div class="radio-label">
+                <label for="gender">Select gender:</label>
+            </div>            
+            <div class="radio-button">
+                <input type="radio" name="testator" id="testator" value="TESTATOR">
+                <label for="lbl_testator">TESTATOR(male)</label> 
+                <input type="radio" name="testator" id="testator" value="TESTARIX">
+                <label for="lbl_testator">TESTATRIX(female)</label>
+                <span class="validate_error" id="testator_error"></span>
+            </div>
+            <div class="clear"></div>
+            <div class="editor-label">
+                <label for="name">Full Name</label>
+            </div>
+            <div class="inputvaluRow">
+                 <input type="text" class="pdf-text" id="full_name" name="full_name" placeholder="" />
+                 <span class="validate_error" id="full_name_error"></span>
+            </div>
+            <div class="clear"></div>
+
+            <div class="editor-label">
+                <label for="address1">Address1</label>
+            </div>
+            <div class="inputvaluRow">
+                <textarea class="pdf-textarea" id="address1" name="address1" rows="1"></textarea>
+                <span class="validate_error" id="address1_error"></span>
+            </div>
+            <div class="clear"></div>
+
+            <div class="editor-label">
+                <label for="address2">Address2</label>
+            </div>
+            <div class="inputvaluRow">
+                <textarea class="pdf-textarea" id="address2" name="address2" rows="1"></textarea>
+                <span class="validate_error" id="address2_error"></span>
+            </div>
+            <div class="clear"></div>
+
+            <div class="editor-label">
+                <label for="zip">Zip</label>
+            </div>
+            <div class="inputvaluRow">
+                <input type="text" class="pdf-text" id="zip" name="zip" placeholder="" />
+                <span class="validate_error" id="zip_error"></span>
+            </div>
+            <div class="clear"></div>
+
+            <div class="editor-label">
+                <label for="city">City</label>
+            </div>
+            <div class="inputvaluRow">
+                <input type="text" class="pdf-text" id="city" name="city" placeholder="" />
+                <span class="validate_error" id="city_error"></span>
+            </div>
+            <div class="clear"></div>
+
+            <div class="editor-label">
+                <label for="city">Country of Address</label>
+            </div>
+            <div class="inputvaluRow">
+                <input type="text" class="pdf-text" id="citizen_country" name="citizen_country" placeholder="" />
+                <span class="validate_error" id="citizen_country_error"></span>
+            </div>
+            <div class="clear"></div>
+
+            <div class="editor-label">
+                <label for="country">Country of Citizenship</label>
+            </div>
+            <div class="inputvaluRow">
+                <select name="country" id="country" class="pdf-text">
+                    <option value="">Please Select</option>
+                    <?php foreach ($this->countriesList as $countryData): ?>
+                            <option value="<?php echo $countryData['id'] ?>"><?php echo $countryData['country_name'] ?></li>
+                    <?php endforeach ?>  
+                </select>   
+                <span class="validate_error" id="country_error"></span>
+            </div>
+            <div class="clear"></div>
+
+            <div class="editor-label">
+                <label for="nationality">Nationality</label>
+            </div>
+            <div class="inputvaluRow">
+                 <input type="text" class="pdf-text" id="nationality" name="nationality" placeholder="" />
+            </div>
+            <div class="clear"></div>
+
+            <div class="large-text-label">
+                <label for="id_type">Your Identification type</label>
+            </div>
+             <div class="editor-label">
+                <label for="id_type">Tick 1 only</label>
+            </div>
+            <div class="radio-button">
+                <input type="radio" name="id_type" id="id_type" value="passport">
+                <label for="passport">Passport</label> 
+                <input type="radio" name="id_type" id="id_type" value="id">
+                <label for="testator">ID</label>
+                <input type="radio" name="id_type" id="id_type" value="driver license">
+                <label for="passport">Driver license</label> 
+                <input type="radio" name="id_type" id="id_type" value="others">
+                <label for="others">Others, namely</label>
+                <span class="validate_error" id="id_type_error"></span>
+            </div>
+            <div class="inputvaluRow">
+                <input type="text" class="pdf-small-text" id="other_id_type" name="other_id_type" placeholder=""  />
+                <span class="validate_error" id="other_id_type_error"></span>
+            </div>
+            <div class="clear"></div>
+
+            <div class="editor-label">
+                <label for="id_number">Your Identification number</label>
+            </div>
+            <div class="inputvaluRow">
+                <input type="text" class="pdf-text" id="id_number" name="id_number" placeholder="" />
+                <span class="validate_error" id="id_number_error"></span>
+            </div>
+            <div class="clear"></div>
+
+            <div class="editor-label">
+                <label for="wa_username_lbl">Your WA Username/email </label>
+            </div>
+            <div class="inputvaluRow">
+                <input type="text" class="pdf-text" id="wa_username" name="wa_username" value="<?php echo $this->userEmail; ?>" />
+            </div>
+            <div class="clear"></div>
+        
+            <div class="large-text-label">
+                <center><label for="representative_set">This second section is all about your 2 legal representatives</label></center>
+            </div>
+            <div class="editor-label">
+                <label for="res_gender">Your 1<sup>st</sup> choice as your personal representative:</label>
+            </div>            
+            <div class="radio-button">
+                <input type="radio" name="first_res_gender" id="first_res_gender" value="mr">
+                <label for="mr">Mr</label> 
+                <input type="radio" name="first_res_gender" id="first_res_gender" value="mrs">
+                <label for="mrs">Mrs</label>
+                <span class="validate_error" id="first_res_gender_error"></span>
+            </div>
+            <div class="clear"></div>
+
+            <div class="editor-label">
+                <label for="res_name">Full Name</label>
+            </div>
+            <div class="inputvaluRow">
+                 <input type="text" class="pdf-text res_name" id="first_res_name" name="res_name[]" placeholder="" />
+                 <span class="validate_error" id="first_res_name_error"></span>
+            </div>
+            <div class="clear"></div>
+
+            <div class="editor-label">
+                <label for="res_address1">Address1</label>
+            </div>
+            <div class="inputvaluRow">
+                <textarea class="pdf-textarea res_address1" id="first_res_address1" name="res_address1[]" rows="1"></textarea>
+                <span class="validate_error" id="first_res_address1_error"></span>
+            </div>
+            <div class="clear"></div>
+
+            <div class="editor-label">
+                <label for="res_address2">Address2</label>
+            </div>
+            <div class="inputvaluRow">
+                <textarea class="pdf-textarea res_address2" id="first_res_address2" name="res_address2[]" rows="1"></textarea>
+                <span class="validate_error" id="first_res_address2_error"></span>
+            </div>
+            <div class="clear"></div>
+
+            <div class="editor-label">
+                <label for="res_zip">Zip</label>
+            </div>
+            <div class="inputvaluRow">
+                <input type="text" class="pdf-text res_postcode" id="first_res_postcode" name="res_postcode[]" placeholder="" />
+                <span class="validate_error" id="first_res_postcode_error"></span>
+            </div>
+            <div class="clear"></div>
+
+            <div class="editor-label">
+                <label for="res_city">City</label>
+            </div>
+            <div class="inputvaluRow">
+                <input type="text" class="pdf-text res_city" id="first_res_city" name="res_city[]" placeholder="" />
+                <span class="validate_error" id="first_res_city_error"></span>
+            </div>
+            <div class="clear"></div>
+
+            <div class="editor-label">
+                <label for="res_country">Country of Address</label>
+            </div>
+            <div class="inputvaluRow">
+                <input type="text" class="pdf-text res_country" id="first_res_country" name="res_country[]" placeholder="" />
+                <span class="validate_error" id="first_res_country_error"></span>
+             </div>
+            <div class="clear"></div>
+
+            <div class="editor-label">
+                <label for="res_phone_number">Phone Number</label>
+            </div>
+            <div class="inputvaluRow">    
+                <input type="text" class="pdf-text res_phone_number" id="first_res_phone_number" name="res_phone_number[]" placeholder=""  />
+                <span class="validate_error" id="first_res_phone_number_error"></span>
+            </div>
+            <div class="clear"></div>
+
+            <div class="editor-label">
+                <label for="res_wauseremail">WA Username/email </label>
+            </div>
+            <div class="inputvaluRow">
+                <input type="text" class="pdf-text res_wauseremail" id="first_res_wausername" name="res_wauseremail[]" placeholder="" />
+                <span class="validate_error" id="first_res_wausername_error"></span>
+            </div>
+            <div class="clear"></div>
+
+            <div class="editor-label">
+                <label for="gender">Your 2<sup>nd</sup> choice as your personal representative:</label>
+            </div>            
+            <div class="radio-button">
+                <input type="radio" name="sec_res_gender" id="sec_res_gender" value="mr">
+                <label for="mr">Mr</label> 
+                <input type="radio" name="sec_res_gender" id="sec_res_gender" value="mrs">
+                <label for="mrs">Mrs</label>
+                <span class="validate_error" id="sec_res_gender_error"></span>
+            </div>
+            <div class="clear"></div>
+
+            <div class="editor-label">
+                <label for="res_name">Name</label>
+            </div>
+            <div class="inputvaluRow">
+                 <input type="text" class="pdf-text res_name" id="sec_res_name" name="res_name[]" placeholder="" />
+                 <span class="validate_error" id="res_name2_error"></span>
+            </div>
+            <div class="clear"></div>
+
+            <div class="editor-label">
+                <label for="res_address1">Address1</label>
+            </div>
+            <div class="inputvaluRow">
+                <textarea class="pdf-textarea res_address1" id="sec_res_address1" name="res_address1[]" rows="1"></textarea>
+                 <span class="validate_error" id="sec_res_address1_error"></span>
+            </div>
+            <div class="clear"></div>
+
+            <div class="editor-label">
+                <label for="res_address2">Address2</label>
+            </div>
+            <div class="inputvaluRow">
+                <textarea class="pdf-textarea res_address2" id="sec_res_address2" name="res_address2[]" rows="1"></textarea>
+                <span class="validate_error" id="sec_res_address2_error"></span>
+            </div>
+            <div class="clear"></div>
+
+            <div class="editor-label">
+                <label for="res_zip">Zip</label>
+            </div>
+            <div class="inputvaluRow">
+                <input type="text" class="pdf-text res_postcode" id="sec_res_postcode" name="res_postcode[]" placeholder="" />
+                <span class="validate_error" id="sec_res_postcode_error"></span>
+            </div>
+            <div class="clear"></div>
+
+            <div class="editor-label">
+                <label for="res_city">City</label>
+            </div>
+            <div class="inputvaluRow">
+                <input type="text" class="pdf-text res_city" id="sec_res_city" name="res_city[]" placeholder="" />
+                <span class="validate_error" id="sec_res_city_error"></span>
+            </div>
+            <div class="clear"></div>
+
+            <div class="editor-label">                
+                <label for="res_country">Country of Address</label>
+            </div>
+            <div class="inputvaluRow">
+                <input type="text" class="pdf-text res_country" id="sec_res_country" name="res_country[]" placeholder="" />
+                <span class="validate_error" id="sec_res_country_error"></span>
+             </div>
+            <div class="clear"></div>
+
+            <div class="editor-label">
+                <label for="res_phone_number">Phone Number</label>
+            </div>
+            <div class="inputvaluRow">    
+                <input type="text" class="pdf-text res_phone_number" id="sec_res_phone_number" name="res_phone_number[]" placeholder=""  />
+                <span class="validate_error" id="sec_res_phone_number_error"></span>
+            </div>
+            <div class="clear"></div>
+
+            <div class="editor-label">
+                <label for="res_wauseremail">WA Username/email</label>
+            </div>
+            <div class="inputvaluRow">
+                <input type="text" class="pdf-text res_wauseremail" id="sec_res_wausername" name="res_wauseremail[]" placeholder="" />
+                <span class="validate_error" id="sec_res_wausername_error"></span>
+            </div>        
+            <div class="clear"></div>
+            <button type="button" class="next_btn" id="register" data-set="step1">Next</button>
+        </div>
+    
+        <div class="stepFrm" style="display:none;">
+            <div class="large-text-label">
+                OPTIONAL: This third section helps your personal representative find/manage your possessions/accounts
+            </div>            
+
+            <div class="editor-label">
+                <input type="checkbox" name="birth_certificate_place_checked" id="birth_certificate_place_checked" />
+                <label for="birth_certificate_place">My Birth/marriage certificates</label>  
+            </div>
+            <div class="inputvaluRow">
+                <input type="text" class="pdf-text" id="birth_certificate_place" name="birth_certificate_place" placeholder="" /> 
+                <span class="validate_error" id="birth_certificate_place_error"></span>
+            </div>  
+            <div class="clear"></div>
+
+            <div class="editor-label">
+                <input type="checkbox" name="life_insurance_policies_checked" id="life_insurance_policies_checked"/>
+                <label for="life_insurance_policies">My life insurance policies</label> 
+            </div>
+            <div class="inputvaluRow">
+                <input type="text" class="pdf-text" id="life_insurance_policies" name="life_insurance_policies" placeholder="" />
+                <span class="validate_error" id="life_insurance_policies_error"></span>
+            </div>     
+            <div class="clear"></div>
+            <div class="editor-label">
+                <input type="checkbox" name="deposit_account_books_checked" id="deposit_account_books_checked" />
+                <label for="deposit_account_books">My deposit account books</label> 
+            </div>
+            <div class="inputvaluRow">
+                <input type="text" class="pdf-text" id="deposit_account_books" name="deposit_account_books" placeholder=""  />
+                <span class="validate_error" id="deposit_account_books_error"></span>
+            </div>      
+            <div class="clear"></div>
+            <div class="editor-label">    
+                <input type="checkbox" name="any_property_checked" id="any_property_checked" />
+                <label for="any_property">Any property deeds/tenancy agreement</label>  
+            </div>
+            <div class="inputvaluRow">
+                <input type="text" class="pdf-text" id="any_property" name="any_property" placeholder=""  />
+                <span class="validate_error" id="any_property_error"></span>
+            </div> 
+            <div class="clear"></div>
+            <div class="editor-label">    
+                <input type="checkbox" name="other_property_checked" id="other_property_checked" />
+                <input type="text" class="large-input-text" id="other_property" name="other_property" placeholder=""  />
+                <span class="validate_error" id="other_property_error"></span>
+            </div> 
+            <div class="clear"></div>
+            <div class="editor-label">    
+                <input type="checkbox" name="any_other_property_checked" id="any_other_property_checked" />
+                <input type="text" class="large-input-text" id="any_other_property" name="any_other_property" placeholder=""  />
+                <span class="validate_error" id="any_other_property_error"></span>
+            </div>
+            <div class="clear"></div>
+            <div class="large-text-label">   
+                <input type="checkbox" name="account_checked" id="account_checked" />            
+                <label for="account">I have</label>
+                <input type="text" class="x-small-text" id="num_accounts" name="num_accounts" min="0" maxlength="10"  placeholder=""  />
+                <a href="javascript:void(0);"><img src="<?php echo $this->makeUrl('/www/images/done-icon.png');?>" class="x-small-text" id="addBankAccountButton"/> </a>
+                <label for="account">accounts, held in the following banks/institutions:</label> 
+                <span class="validate_error" id="num_accounts_error"></span>
+            </div>
+            <div class="clear"></div>  
+            <div id="container_bankaccount"> 
+                <div id="single_account_group">
+                </div>
+            </div>
+            <a href="javascript:void(0);" class="add_more_btn" id="bankAccountaddMore">Add More</a> 
+            <div class="editor-label">
+                <input type="checkbox" name="active_investments_checked" id="active_investments_checked" />
+                <label for="active_investments">I have the following active investments</label>  
+            </div>
+            <div class="inputvaluRow">
+                <input type="text" class="pdf-text" id="active_investments" name="active_investments" placeholder=""  />
+                <span class="validate_error" id="active_investments_error"></span>
+            </div>
+            <div class="clear"></div>
+            <div class="editor-label">
+                <input type="checkbox" name="other_possessions_checked" id="other_possessions_checked" />
+                <label for="other_possessions">I have the following other possessions</label>  
+            </div>
+            <div class="inputvaluRow">
+                <input type="text" class="pdf-text" id="other_possessions" name="other_possessions" placeholder=""  />
+                <span class="validate_error" id="other_possessions_error"></span>
+            </div>  
+            <div class="clear"></div>
+            <div class="large-text-label">   
+                <input type="checkbox" name="social_account_checked" id="social_account_checked" value="">            
+                <label for="social_account">I want to leave instructions for my social media accounts</label>  
+            </div>  
+            <div id="social_account_set">
+                <div class="social_account_group" id="tb">
+                    <div class="closebtn" onclick="popupClose(this);"></div>
+                    <div class="editor-label">
+                        <label for="social_url">1<sup>st</sup> social media account site/name</label>
+                    </div>
+                    <div class="inputvaluRow">
+                        <input type="text" class="pdf-text" id="social_url1" name="social_url[]" placeholder="" />
+                        <br /><span class="validate_error" id="social_url1_error"></span>
+                    </div>
+                    <div class="clear"></div>
+
+                    <div class="editor-label">
+                        <label for="social_email">1<sup>st</sup> social media account username/email address</label>
+                    </div>
+                    <div class="inputvaluRow">
+                        <input type="text" class="pdf-text" id="social_email1" name="social_email[]" placeholder="" />
+                        <br /><span class="validate_error" id="social_email1_error"></span>
+                    </div>
+                    <div class="clear"></div>
+
+                    <div class="editor-label">
+                        <label for="social_password">1<sup>st</sup> social media account password (case sensitive)</label>
+                    </div>
+                    <div class="inputvaluRow">
+                        <input type="password" class="pdf-text" id="social_password1" name="social_password[]" placeholder="" />
+                        <br /><span class="validate_error" id="social_password1_error"></span>
+                    </div>
+                    <div class="clear"></div>
+
+                    <div class="editor-label">
+                        <label for="social_ques">1<sup>st</sup> social media account answers to security question</label>
+                    </div>
+                    <div class="inputvaluRow">    
+                        <input type="text" class="pdf-text" id="social_ques1" name="social_ques[]" placeholder=""  />
+                        <br /><span class="validate_error" id="social_ques1_error"></span>
+                    </div>
+
+                    <div class="radio-button"> 
+                        <label for="social_ans_lbl">I want this account to be</label>
+                        <input type="radio" name="social_ans1" class="social_ans" value="1" onclick="accountStatus(this);"> <label for="deleted"> deleted </label>       
+                        <input type="radio" name="social_ans1" class="social_ans" value="2" onclick="accountStatus(this);"> <label for="memorialized"> memorialized </label>  
+                        <input type="radio" name="social_ans1" class="social_ans" value="3" onclick="accountStatus(this);"> <label for="managed by"> managed by </label>  
+                        <span class="validate_error" id="social_ans1_error"></span> 
+                    </div>
+                    <div class="inputvaluRow">    
+                        <input type="text" class="pdf-small-text" id="social_manage_username1" name="social_manage_username[]" placeholder=""  />
+                        <span class="validate_error" id="social_manage_username1_error"></span>
+                    </div>                    
+                    <div class="clear"></div>
+                </div>
+            </div>
+                   
+            <a href="javascript:void(0);" class="add_more_btn" id="socialAccountaddMore">Add More</a> <br />
+            <div class="clear"></div> 
+            <br />
+            <button type="button" class="pre_btn">Previous</button>
+            <button type="button" class="next_btn" id="register1" data-set="step2">Next</button>
+        </div>
+          
+        <div class="stepFrm" style="display:none;">
+            <div class="large-text-label">    
+                MANDATORY: This fourth section helps your personal representative divide your estate/possessions!
+            </div>
+            <div class="large-text-label">  
+                Instructions on how you want your estate be divided, devolved and bequeathed
+            </div>
+            <div class="large-text-label">   
+               <label for="estate_checked_label">I devise, bequeath and give my </label>   
+            </div>               
+            <div class="clear"></div>
+            <div id="container_estate_set"> 
+                <div class="single_estate_group" id="tb1">
+                    <div class="closebtn" onclick="popupClose(this);"></div>
+                    <div class="left-section">
+                        <input type="text" class="pdf-small-text" id="item_name1" name="item_name[]" placeholder="">
+                        <span class="validate_error" id="item_name1_error"></span>
+                    </div>
+                    <div class="mid-section">
+                        <label for="to"> to </label>  
+                    </div>
+                    <div class="right-section">
+                        <input type="text" class="pdf-small-text" id="beneficiairy1" name="beneficiairy[]" placeholder="">
+                        <span class="validate_error" id="beneficiairy1_error"></span>
+                    </div>
+                    <div class="clear"></div>  
+                </div>                  
+            </div>
+            <a href="javascript:void(0);" class="add_more_btn" id="estateaddMore" name="estateaddMore">Add More</a> 
+            <div class="clear"></div>
+            
+            <div id="container_estate_devise_set"> 
+                <div class="single_estate_devise_group" id="tb1">
+                    <div class="left-section">
+                        <input type="text" class="x-small-text" id="percentage1" name="percentage[]" placeholder="" maxlength="3" />
+                        <span class="validate_error" id="percentage1_error"></span>
+                    </div>
+                    <div class="mid-section">
+                        <label for="percentage">%</label>
+                    </div>
+                    <div class="right-section">
+                     <input type="text" class="pdf-text" id="devise_beneficiairy1" name="devise_beneficiairy[]" placeholder=""  />
+                     <br /><span class="validate_error" id="devise_beneficiairy1_error"></span>
+                    </div> 
+                    <div class="clear"></div>    
+                </div>                  
+            </div>
+            <div id="container_estate_devise_remaining"> 
+                <div class="left-section">
+                      <input type="text" class="x-small-text" id="remianing_percentage" name="remaining_percent" placeholder="" />
+                </div>
+                <div class="mid-section">
+                    <label for="percentage">%</label>
+                </div>
+                <div class="right-section">
+                    <label for="remaining">remaining to be equaly divided between my legal inheritors.</label>
+                </div> 
+                <div class="clear"></div>  
+            </div>
+            <div class="clear"></div>
+            
+            <div class="editor-label">   
+                <label for="male"> Write all your special requests here</label>
+            </div>         
+            <div class="inputvaluRow">    
+                  <textarea class="textarea" id="testament_request" name="testament_request"></textarea>
+            </div>
+            <input type="submit" class="btn" id="previewBtn" value="Preview Testament" /><br /><br />
+            
+            <div class="clear"></div>
+            <button type="button" class="pre_btn">Previous</button>
+            <button type="button" class="next_btn" id="register1" data-set="step3">Next</button>
+        </div>
+        <div class="stepFrm" style="display:none;">
+            <div class="large-text-label">
+                <p>You must have at least two (2) witnesses to this WA-testament</p>
+                <p>After sending out an invitation to witnesses you cannot make any further change to your WA-testament, 
+                    do you want to invite your witness now or do you want to review your testament. </p>
+            </div> 
+            <a href="javascript:void(0);" class="add_more_btn" id="witnessAlertPopup" onClick="popupOpen('witnessAlertPopup')">Add Witness</a> 
+            <hr />
+            <div class="inviteWitnessContainer">
+                <div class="single-group">
+                    <label>Witness Name : </label> <span> Google </span>
+                    <label>Request Status : </label> <span> Pending </span>
+                    <label>IdName : </label> <span> Passport </span>
+                    <label>Witness IDNo : </label> <span> qsswa12344 </span>
+                </div>  
+            </div>
+            <div class="clear"></div>  
+            <h2>Note : </h2> 
+            <p>WA-Smart automatically validate on Next Button</p><br />
+           
+            <button type="button" class="pre_btn">Previous</button>
+            <button type="button" class="next_btn" id="register1" data-set="wa-testament3">Next</button>
+        </div>
+        <div class="stepFrm" style="display:none;">            
+            <div class="large-text-label">
+                <p>Record your name, surname, place and date and, if you want,you may also add “I created this WA-testament free and 
+voluntarily and without any external pressure"</p>
+            </div> 
+            <a href="javascript:void(0)" id="shareDevice" onclick="initAudio();">Access My Microphone</a><br />
+            <canvas id="analyser" width="200" height="100" style="display: none;"></canvas> 
+            <canvas id="wavedisplay" width="200" height="100" style="display: none;"></canvas>    
+            <img id="record" src="<?php echo $this->makeUrl('/www/images/mic-record.png'); ?>" onclick="toggleRecording(this);">
+            <a id="save_recored_audio" href=""><!--<img src="<?php echo $this->makeUrl('/www/images/save_audio.svg'); ?>"></img>--> Download</a>
+            <br />
+            <h1> Signature </h1>              
+            <div id="signature-pad" class="m-signature-pad">
+                <div class="m-signature-pad--body">
+                  <canvas></canvas>
+                </div>
+                <div class="m-signature-pad--footer">
+                  <div class="description">Sign above</div>
+                  <button class="button" data-action="clear">Clear</button>
+                  <button class="button save" data-action="save">Save</button>
+                </div>
+              </div>
+           <div class="clear"></div>
+            <button type="button" class="pre_btn">Previous</button>
+            <button type="button" class="next_btn" id="register1" data-set="wa-testament3">Next</button>
+        </div>
+        <div class="stepFrm" style="display:none;">
+            <div class="large-text-label">
+                <p>Select the type of message you want to send.</p>
+            </div> 
+                <ul class="clearfix">
+                    <li class="active" id="file" onclick=""> <img src="<?php echo $this->makeUrl('/www/images/attachment.png'); ?>" height="50px" width="50px"/></li>
+                    <li class="" id="video" onclick=""> <img src="<?php echo $this->makeUrl('/www/images/video.png'); ?>" height="50px" width="50px"/></li>
+                    <li class="" id="images" > <img src="<?php echo $this->makeUrl('/www/images/gallery_image.png'); ?>" height="50px" width="50px"/></li>
+                    <li class="" id="audio" onclick=""> <img src="<?php echo $this->makeUrl('/www/images/audio_file.png'); ?>" height="50px" width="50px"/></li>
+                </ul>
+            <div class="tabs_content" id="file">
+                attachment file with view icon
+            </div>
+
+            <div class="tabs_content" id="video">
+                video file with thumb icon
+            </div>
+
+            <div class="tabs_content" id="images">
+                images gallery with thumb on image click display full size image and delete image option.
+            </div>
+
+            <div class="tabs_content" id="audio">
+                 audio file with audio player icon and user can play file here.
+            </div>
+            <div class="clear"></div> 
+           
+            <button type="button" class="pre_btn">Previous</button>
+            <button type="button" class="next_btn" id="register1" data-set="wa-testament3">Next</button>
+        </div>
+        <div class="stepFrm" style="display:none;">
+            <div class="editor-label">
+                <label for="">Select Receiver testament</label>
+            </div>
+            <div id="searchFriends"> 
+            <?php
+                 $result = array('sarvesh','manish');
+                echo '<ul>';
+                foreach($result as $row){
+                  echo  "<li alt='57600' class='user_list' id='google' onClick=\"selectUser('$row');\">
+                            <div style='float: left'>
+                               <img style = 'width:50px;height:50px' src='/www/images/user_icon.png' />
+                            </div>
+                            <div style='float: left'>"
+                            .$row.
+                            "</div>                        
+                            <input type='checkbox' name='' />
+                            <div style='clear:both'></div>
+                        </li>";
+                }
+                echo '</ul>';
+            ?>
+            </div> <br />
+             <div class="editor-label">
+                <label for="">Select testament trustees</label>
+            </div>
+            <div id="searchTrustees"> 
+            <?php
+                 $result = array('sarvesh','manish');
+                echo '<ul>';
+                foreach($result as $row){
+                  echo  "<li alt='57600' class='user_list' id='google' onClick=\"selectUser('$row');\">
+                            <div style='float: left'>
+                               <img style = 'width:50px;height:50px' src='/www/images/user_icon.png' />
+                            </div>
+                            <div style='float: left'>"
+                            .$row.
+                            "</div>                        
+                            <input type='checkbox' name='' />
+                            <div style='clear:both'></div>
+                        </li>";
+                }
+                echo '</ul>';
+            ?>  
+            </div>          
+            <div class="clear"></div> 
+            <a href="javascript:void(0)" id="shareDevice" onclick="">Download Testament</a><br />
+           
+            <button type="button" class="pre_btn">Previous</button>
+            <button type="button">submit</button>
+            
+        </div>
+        </form> 
+    
+    </div>
+</div>
+<!--- end section --->
+<script src="<?php echo $this->makeUrl('/www/js/testament.js')?>"></script>
+<script src="<?php echo $this->makeUrl('/www/js/recorder.js')?>"></script>
+<script src="<?php echo $this->makeUrl('/www/js/main.js')?>"></script>
+<script src="<?php echo $this->makeUrl('/www/js/audiodisplay.js')?>"></script>
+<!--<script src="<?php echo $this->makeUrl('/www/js/jquery.fancybox.js')?>"></script>
+<link href="<?php echo $this->makeUrl('/www/css/signature-pad.css')?>" rel="stylesheet">
+<script src="<?php echo $this->makeUrl('/www/js/signature_pad.js')?>"></script>
+<script src="<?php echo $this->makeUrl('/www/js/app.js')?>"></script>
+<link href="<?php echo $this->makeUrl('/www/css/select2.css')?>" rel="stylesheet">
+<script src="<?php echo $this->makeUrl('/www/js/select2.js')?>"></script>
+
+<link href="<?php echo $this->makeUrl('/www/css/jquery.fancybox.css')?>" rel="stylesheet">-->

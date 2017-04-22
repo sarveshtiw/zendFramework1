@@ -1,0 +1,24 @@
+<?php if(!empty($this->data)):
+    $status = "";
+    foreach ($this->data as $row):         
+    if($row->is_status == 0):
+        $status = "Pending";
+    elseif($row->is_status == 1):
+        $status = "Approved";
+    endif; ?>
+        <div class="row">
+            <div class="col-xs-6">
+                <p><label><?php echo $this->translate('witness_name'); ?> : </label> <span> <?php echo $row['username']; ?> </span></p>
+            </div>
+            <div class="col-xs-6">
+                <p><label><?php echo $this->translate('request_status'); ?> : </label> <span> <?php echo $status; ?> </span></p>
+            </div>
+            <div class="col-xs-6">
+                <p><label><?php echo $this->translate('witness_idtype'); ?> : </label> <span> <?php echo $row['id_type']; ?> </span></p>
+            </div>
+            <div class="col-xs-6">
+                <p><label><?php echo $this->translate('witness_idNumber'); ?> : </label> <span> <?php echo $row['id_number']; ?> </span></p>
+            </div>
+        </div>
+    <?php endforeach; ?>    
+<?php endif; ?>

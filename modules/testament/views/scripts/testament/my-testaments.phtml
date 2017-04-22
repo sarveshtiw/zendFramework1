@@ -1,0 +1,88 @@
+<!--Breadcrumb Starts-->
+<div class="breadcrumb clearfix">
+    <div class="col-xs-12">
+        <a href="#">Home</a>
+            <img src="/new_images/arrow_bred.png" width="22" height="9"/>
+        <span>My Testament</span>    
+    </div>
+</div>
+<!--Breadcrumb Ends-->
+
+<!--Search Testament Starts-->
+<div class="col-xs-12 srchStrip">
+    <div class="ssSearch">
+        <input type="text" name="search_text" value="" placeholder="<?php echo $this->translate('label_txt_9');?>" id="search_text" />
+        <input type="button" name="search_testament_btn" id="search_btn" value="Search" />
+    </div>
+</div> 
+<!--Search Testament Ends-->
+
+<!--Page Content Starts-->
+<div class="content clearfix myTestament">
+    <div class="col-xs-12">
+        <?php if(!empty($this->activeTestaments)): ?>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr><th colspan="2">Active Testament:</th></tr>         
+            <tr>
+                <td><?php echo strtoupper('last bill & testament'); ?> </td>
+                <td><a href="<?php echo $this->activeTestaments->created_pdf_link; ?>" target="_blank" class="btn">Download</td>
+            </tr>          
+        </table> 
+        <?php endif; ?>
+        
+        <div id="sucess_response"></div>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <?php if(!empty($this->allTestaments) && (count($this->allTestaments) > 0)): ?>
+            <tr>
+                <th>Testament Name</th>
+                <th>Testament Date</th>
+                <th>Action</th>
+            </tr>
+           <?php foreach ($this->allTestaments as $row): 
+                 //$testament_id = $this->WaCommon()->setEncrypt($row->testament_id);
+               ?>
+            <tr>
+                <td><?php echo strtoupper('last bill & testament'); ?></td>
+                <td><?php echo $row->creation_date; ?></td>
+                <td><a href="javascript:void(0);" class="btn edit"> View/Edit </a> 
+                    <a href="javascript:void(0);" class="btn delete" id="delete-testament" testament_id="<?php echo $row->testament_id; ?>"> Delete </a>
+                </td>
+            </tr>
+           <?php endforeach; ?>              
+            <?php else: ?>
+            <tr>
+                <td colspan="2"> No records founds ..</td>
+            </tr>
+            <?php endif; ?>
+        </table>
+        
+        <?php if(!empty($this->receivedTestaments) && (count($this->allTestaments) > 0)): ?>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr><th colspan="2">Active Testament:</th></tr>            
+           <?php foreach ($this->receivedTestaments as $row): ?>
+            <tr>
+                <td><?php echo strtoupper('last bill & testament'); ?> </td>
+                <td><a href="<?php echo $row->created_pdf_link; ?>" target="_blank" class="btn">Download</td>
+            </tr>          
+            <?php endforeach; ?>    
+        </table> 
+        <?php endif; ?>
+    </div>
+</div>
+<!--Page Content End-->
+
+<!--Popup Start Confirm delete -->
+<div class="bg_transpop" id="deleteTestamentAlertPopup">
+    <div class="overlay"></div>
+    <div class="contentpopWrap">
+        <div class="contentpop">
+            <div class="closebtn" id="deleteTestamentAlertPopupClose"></div>
+            <div class="heading"><h1>Alert</h1></div>
+            <hr />
+            <p>Do you want to delete your Testament ?</p> <br />
+            <a href="javascript:void(0);" class="btn" id="testamentNotDeleted">No</a> 
+            <a href="javascript:void(0);" class="btn" id="testamentDeleted" testament_id="">Yes</a>
+        </div>
+    </div>
+</div>
+<!-- Popup End Confirm delete -->

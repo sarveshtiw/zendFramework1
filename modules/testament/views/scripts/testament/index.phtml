@@ -1,0 +1,36 @@
+
+<!--Breadcrumb Starts-->
+<div class="breadcrumb clearfix">
+    <div class="col-xs-12">
+        <a href="#">Home</a>
+        <img src="/new_images/arrow_bred.png" width="22" height="9"/>
+        <span>Testament</span>    
+    </div>
+</div>
+<!--Breadcrumb Ends-->
+
+<!--Page Content Starts-->
+<div class="content clearfix testament">
+    <div class="col-xs-12">
+        <div class="titlePg">
+            <a href="javascript:void(0);" class="btn" id="create-testament-link">Create new</a>
+        </div>    
+        <div class="tabs_buttons">
+            <ul class="clearfix">
+                <li><a href="<?php echo $this->makeUrl('/testament/add'); ?>">Create new</a></li>
+                <li><a href="<?php echo $this->makeUrl('/testament/my-testaments'); ?>">All details</a></li>
+                <li><a href="<?php echo $this->makeUrl('/testament/witness-request'); ?>">All requests</a></li>
+                <li><a href="<?php echo $this->makeUrl('/testament/received-testaments'); ?>">Statuses</a></li>
+            </ul>
+        </div>        
+        <div class="tabs_content" id="create-testament" style="display:block;">
+            <div class="previewTestament">
+                <iframe src="https://docs.google.com/gview?embedded=true&url=http://52.4.193.184/www/files/WA-TESTAMENT INFO-FOR-USERS.pdf"></iframe>
+            <!--  <embed src="<?php echo $this->makeUrl('/www/files/WA-TESTAMENT INFO-FOR-USERS.pdf'); ?>" internalinstanceid="12"></embed>-->
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--Page Content Ends-->  
+</div>

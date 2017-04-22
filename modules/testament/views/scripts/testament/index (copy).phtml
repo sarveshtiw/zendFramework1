@@ -1,0 +1,34 @@
+<!--- start testament --->
+<div class="tabSliderCol">
+    <div class="titlePg">
+        <br/>
+        <a href="<?php echo $this->baseUrl ?>/testament/add" class="add_button"><span class="icon"></span>Create Testament</a>
+    </div>
+    <div class="tabWrap">
+       <div class="tabs_buttons">
+           <ul class="clearfix">
+               <li class="active" id="create-testament">Create Testament</li>
+               <li class="" id="my-testament" onclick=""><a href="<?php echo $this->makeUrl('/testament/my-testaments'); ?>">My Testament</a></li>
+               <li class="" id="my-witness-testament" onclick=""><a href="<?php echo $this->makeUrl('/testament/witness-request'); ?>">Witness Request</a></li>
+               <li class="" id="my-received-testament" onclick=""><a href="<?php echo $this->makeUrl('/testament/received-testaments'); ?>">Received Testament</a></li>
+           </ul>
+        </div>
+        <div class="tabs_content" id="create-testament" style="display:block;">
+            <div class="previewTestament">
+                <embed src="<?php echo $this->makeUrl('/www/files/WA-TESTAMENT INFO-FOR-USERS.pdf'); ?>" width="900px" height="1000px" ></embed>
+            </div>
+        </div>
+    </div>
+
+    <div class="tabs_content" id="my-testament">
+
+    </div>
+
+    <div class="tabs_content" id="my-witness-testament">
+        
+    </div>
+
+    <div class="tabs_content" id="my-received-testament">
+
+    </div>
+</div>

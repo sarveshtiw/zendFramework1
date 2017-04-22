@@ -1,0 +1,133 @@
+<!--Breadcrumb Starts-->
+<div class="breadcrumb clearfix">
+    <div class="col-xs-12">
+        <a href="#">Home</a>
+        <img src="/new_images/arrow_bred.png" width="22" height="9"/>
+        <span>Witness Request</span>    
+    </div>
+</div>
+<!--Breadcrumb Ends-->
+
+<!--Page Content Starts-->
+<div class="content clearfix viewWitnessRequest check">
+    <form id="witnessForm" action="" method="post" enctype="multipart/form-data">
+        <div class="stepFrm" id="first">
+            <div class="col-xs-12">
+                <div class="previewWitness">
+                    <iframe src="https://docs.google.com/gview?embedded=true&url=http://52.4.193.184/www/files/WA-TESTAMENT INFO-FOR-USERS.pdf"></iframe>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <ul>
+                    <?php 
+                      $count = 0;
+                      if(!empty($this->result)): 
+                        foreach ($this->result as $row):
+                          $count = $count + 1;
+                    ?>
+                    <li>
+                        <p><?php echo $row['question']; ?></p>
+                        <p><input type="radio" name="radio<?php echo $count; ?>" value="yes"><label>Yes</label> <input type="radio" name="radio<?php echo $count; ?>" value="no"><label>No</label>
+                            <span class="validate_error" id="radio<?php echo $count; ?>_error"></span>
+                        </p>
+                    </li>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </ul>
+            </div> 
+            <div class="col-sm-12">
+                <a href="javascript:void(0);" class="btn witenss-request-rejected" witness_id="<?php echo $this->waCommon()->setEncrypt($row['witness_id']); ?>"> REJECT </a>
+                <a href="javascript:void(0);" class="btn witenss-confirm" witness_id="<?php echo $this->waCommon()->setEncrypt($row['witness_id']); ?>" onclick="confirmWitness(this)" data-set="step1"> CONFIRM </a>
+            </div>
+        </div>
+        
+        <div class="stepFrm step2" style="display:none;">
+            <div class="col-xs-12">
+                <p><?php echo $this->translate('record_audio_txt'); ?></p>
+            </div>
+            <div class="col-xs-12">
+                <div class="col-xs-6">
+                    <a href="javascript:void(0)" id="shareDevice" class="btn microphone" onclick="initAudio();"><?php echo $this->translate('access_microphone'); ?></a>
+                    <a id="save_recored_audio" href="" class="btn"><?php echo $this->translate('download'); ?></a>
+                    <span class="validate_error" id="recored_audio_error"></span>
+                    <canvas id="analyser" width="200" height="100" style="display: none;"></canvas>
+                    <canvas id="wavedisplay" width="200" height="100" style="display: none;"></canvas>
+                    <input type="file" name="recorded_file" />
+                </div>  
+                <div class="col-xs-1"> <b></b> </div>
+                <div class="col-xs-5">
+                </div>
+                <div class="clear"></div>                    
+                <div class="col-xs-6">
+                    <img id="record" src="<?php echo $this->makeUrl('/new_images/mic-record.png'); ?>" height="80px" onclick="toggleRecording(this);">
+                </div>                                              
+                <div class="col-xs-6">
+                    <!--<audio id="recorded_file" controls>
+                      <source src="" type="audio/mpeg">
+                    </audio>-->
+                </div>
+                <div class="clear"></div>  
+                <a href="javascript:void(0);" class="btn next_btn" witness_id="<?php echo $this->waCommon()->setEncrypt($row['witness_id']); ?>" onclick="(this)" data-set="step2"> Next </a>
+           
+            </div>
+        </div>
+    </form>
+</div>
+<!--Page Content Ends-->  
+
+<!--Popup Start Confirm delete -->
+<div class="bg_transpop" id="witenssRequestRejectAlertPopup">
+    <div class="overlay"></div>
+    <div class="contentpopWrap">
+        <div class="contentpop">
+            <div class="closebtn" id="witenssRequestRejectAlertPopupClose"></div>
+            <div class="heading"><h1>Alert</h1></div>
+            <hr />
+            <p>Do you want to reject this request ?</p> <br />
+            <a href="javascript:void(0);" class="btn" id="witness-no">No</a> 
+            <a href="javascript:void(0);" class="btn" id="witness-yes" witness_id="">Yes</a>
+        </div>
+    </div>
+</div>
+<!-- Popup End Confirm delete -->
+
+<!--Popup Start Confirm Alert  -->
+<div class="bg_transpop" id="witenssRequestConfirmAlertPopup">
+    <div class="overlay"></div>
+    <div class="contentpopWrap">
+        <div class="contentpop">
+            <div class="closebtn" id="witenssRequestConfirmAlertPopupClose"></div>
+            <div class="heading"><h1>Alert</h1></div>
+            <hr />
+            <p>Do you want to reject this request ?</p> <br />
+            <a href="javascript:void(0);" class="btn" id="reject-no">No</a> 
+            <a href="javascript:void(0);" class="btn" id="reject-yes" witness_id="">Yes</a>
+        </div>
+    </div>
+</div>
+<!-- Popup End Confirm delete -->
+
+<!-- -->
+<div class="bg_transpop" id="signature-pad"> 
+    <form method="POST" action="">
+        <div class="overlay"></div>
+        <div class="contentpopWrap">
+            <div class="contentpop">
+                <div class="closebtn" id="signaturePadClose"></div>
+                <div class="heading"><h1> <?php echo $this->translate('signature'); ?> </h1></div>
+                <canvas class="pad"></canvas>
+                <fieldset>
+                    <input type="reset" value="clear" class="btn" />
+                    <button type="submit" id ="save-signature" class="btn"> save </button>
+                </fieldset>
+            </div>
+        </div>
+    </form>
+</div>
+<style type="text/css">
+.microphone{line-height:27px; float:left; margin-right:10px;}
+.microphone:before{content:url(../new_images/microphone.png); float:left; margin:0 10px 0 0!important;}
+.recording{background-color:#B80000;}                                                                                                                                                                                                                                                                                                                              
+#save_recored_audio{margin-bottom:0px; line-height:28px;}
+#recorded_file{margin-top: 50px; padding: 25px;}
+</style>

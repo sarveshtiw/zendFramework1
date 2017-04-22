@@ -1,1 +1,1153 @@
+<!--Breadcrumb Starts-->
+<div class="breadcrumb clearfix">
+    <div class="col-xs-12">
+        <a href="#">Home</a>
+        <img src="/new_images/arrow_bred.png" width="22" height="9">
+        <span><?php echo $this->translate('new_testament'); ?></span>
+    </div>
+</div>
+<!--Breadcrumb Ends-->
 
+<!--Page Content Starts-->
+<div class="content clearfix testament check">
+    <div class="col-xs-12">
+        <div class="titlePg">
+            <h5><?php echo $this->translate('steps_testament'); ?></h5>
+        </div>
+        <form id="testamentForm" action="" method="post" enctype="multipart/form-data">
+            <div class="stepFrm" id="first">
+                <div class="col-xs-3">
+                    <label for="gender"><?php echo $this->translate('select_gender'); ?></label>
+                </div>
+                <div class="col-xs-9 radioBtn">
+                    <input type="radio" name="testator" id="testator" value="TESTATOR">
+                    <label for="lbl_testator" class="mright"><?php echo $this->translate('testator_m'); ?></label> 
+                    <input type="radio" name="testator" id="testator" value="TESTARIX">
+                    <label for="lbl_testator"><?php echo $this->translate('testator_f'); ?></label>
+                    <div class="clear"></div>
+                    <span class="validate_error" id="testator_error"></span>
+                </div>
+                <div class="clear"></div>
+                <div class="col-xs-3">
+                    <label for="name"><?php echo $this->translate('full_name'); ?></label>
+                </div>
+                 
+                <div class="col-xs-9">
+                    <input type="text" class="pdf-text" id="full_name" name="full_name" placeholder="">
+                    <span class="validate_error" id="full_name_error"></span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-xs-3">
+                    <label for="address1"><?php echo $this->translate('address1'); ?></label>
+                </div>
+                <div class="col-xs-9">
+                    <textarea class="pdf-textarea" id="address1" name="address1" rows="1"></textarea>
+                    <span class="validate_error" id="address1_error"></span>
+                </div>
+                <div class="clear"></div>
+                <div class="col-xs-3">
+                    <label for="address2"><?php echo $this->translate('address2'); ?></label>
+                </div>
+                <div class="col-xs-9">
+                    <textarea class="pdf-textarea" id="address2" name="address2" rows="1"></textarea>
+                    <span class="validate_error" id="address2_error"></span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-xs-3">
+                    <label for="zip"><?php echo $this->translate('zip'); ?></label>
+                </div>
+                <div class="col-xs-9">
+                    <input type="text" class="pdf-text" id="zip" name="zip" placeholder="">
+                    <span class="validate_error" id="zip_error"></span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-xs-3">
+                    <label for="city"><?php echo $this->translate('city'); ?></label>
+                </div>
+                <div class="col-xs-9">
+                    <input type="text" class="pdf-text" id="city" name="city" placeholder="">
+                    <span class="validate_error" id="city_error"></span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-xs-3">
+                    <label for="city"><?php echo $this->translate('country_of_address'); ?></label>
+                </div>
+                <div class="col-xs-9">
+                    <input type="text" class="pdf-text" id="citizen_country" name="citizen_country" placeholder="">
+                    <span class="validate_error" id="citizen_country_error"></span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-xs-3">
+                    <label for="country"><?php echo $this->translate('country_citizenship'); ?></label>
+                </div>
+                <div class="col-xs-9">
+                    <select name="country" id="country" class="pdf-text">
+                        <option value=""><?php echo $this->translate('please_select'); ?></option>
+                        <?php foreach ($this->countriesList as $countryData): ?>
+                                <option value="<?php echo $countryData['id'] ?>"><?php echo $countryData['country_name'] ?></option>
+                        <?php endforeach; ?>                          
+                    </select>
+                    <div id="fuzzSearch">
+                        <div id="fuzzNameContainer">
+                            <span class="fuzzName"></span> 
+                            <span class="fuzzArrow"></span>
+                        </div>
+                        <div id="fuzzDropdownContainer">
+                            <input type="text" value="" class="fuzzMagicBox" placeholder="<?php echo $this->translate('search'); ?>" /> 
+                            <span class="fuzzSearchIcon"></span>
+                            <ul id="fuzzResults">                                
+                            </ul>
+                        </div>
+                    </div>
+                    <span class="validate_error" id="country_error"></span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-xs-3">
+                    <label for="nationality"><?php echo $this->translate('nationality'); ?></label>
+                </div>
+                <div class="col-xs-9">
+                    <input type="text" class="pdf-text" id="nationality" name="nationality" placeholder="" disabled="">
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-xs-12 title">
+                    <h3><span><?php echo $this->translate('id_type'); ?></span></h3>
+                </div>
+                <div class="col-xs-3">
+                    <label for="id_type"><?php echo $this->translate('id_checked_txt'); ?></label>
+                </div>
+                <div class="col-xs-9 radioBtn">
+                    <input type="radio" name="id_type" id="id_type" value="passport">
+                    <label for="passport"><?php echo $this->translate('passport'); ?></label>
+                    <input type="radio" name="id_type" id="id_type" value="id">
+                    <label for="testator"><?php echo $this->translate('id'); ?></label>
+                    <input type="radio" name="id_type" id="id_type" value="driver license">
+                    <label for="passport"><?php echo $this->translate('driver_license'); ?></label>
+                    <input type="radio" name="id_type" id="id_type" value="others">
+                    <label for="others"><?php echo $this->translate('others_namely'); ?></label>
+                    <div class="clear"></div>
+                    <span class="validate_error" id="id_type_error"></span>
+                </div>
+                <div class="col-xs-9 col-xs-offset-3">
+                    <input type="text" class="pdf-small-text" id="other_id_type" name="other_id_type" placeholder="" style="display: none;">
+                    <div class="clear"></div>
+                    <span class="validate_error" id="other_id_type_error"></span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-xs-3">
+                    <label for="id_number"><?php echo $this->translate('id_number'); ?></label>
+                </div>
+                <div class="col-xs-9">
+                    <input type="text" class="pdf-text" id="id_number" name="id_number" placeholder="">
+                    <span class="validate_error" id="id_number_error"></span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-xs-3">
+                    <label for="wa_username"><?php echo $this->translate('wausername'); ?> </label>
+                </div>
+                <div class="col-xs-9">
+                    <input type="text" class="pdf-text" id="wa_username" name="wa_username" value="sarvesh@qsstechnosoft.com" disabled="">
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-xs-12">
+                    <h3 align="center"><span><?php echo $this->translate('second_section_txt'); ?></span></h3>
+                </div>
+                <div class="col-xs-3">
+                    <label for="res_gender"><?php echo $this->translate('your'); ?> <?php echo $this->translate('num_1'); ?><sup><?php echo $this->translate('first_txt'); ?></sup> <?php echo $this->translate('choice_as_your_txt'); ?></label>
+                </div>
+                <div class="col-xs-9 radioBtn">
+                    <input type="radio" name="first_res_gender" id="first_res_gender" value="mr">
+                    <label for="mr"><?php echo $this->translate('mr'); ?></label>
+                    <input type="radio" name="first_res_gender" id="first_res_gender" value="mrs">
+                    <label for="mrs"><?php echo $this->translate('mrs'); ?></label>
+                    <div class="clear"></div>
+                    <span class="validate_error" id="first_res_gender_error"></span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-xs-3">
+                    <label for="res_name"><?php echo $this->translate('full_name'); ?></label>
+                </div>
+                <div class="col-xs-9">
+                    <input type="text" class="pdf-text res_name" id="first_res_name" name="res_name[]" placeholder="">
+                    <span class="validate_error" id="first_res_name_error"></span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-xs-3">
+                    <label for="res_address1"><?php echo $this->translate('address1'); ?></label>
+                </div>
+                <div class="col-xs-9">
+                    <textarea class="pdf-textarea res_address1" id="first_res_address1" name="res_address1[]" rows="1"></textarea>
+                    <span class="validate_error" id="first_res_address1_error"></span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-xs-3">
+                    <label for="res_address2"><?php echo $this->translate('address2'); ?></label>
+                </div>
+                <div class="col-xs-9">
+                    <textarea class="pdf-textarea res_address2" id="first_res_address2" name="res_address2[]" rows="1"></textarea>
+                    <span class="validate_error" id="first_res_address2_error"></span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-xs-3">
+                    <label for="res_zip"><?php echo $this->translate('zip'); ?></label>
+                </div>
+                <div class="col-xs-9">
+                    <input type="text" class="pdf-text res_postcode" id="first_res_postcode" name="res_postcode[]" placeholder="">
+                    <span class="validate_error" id="first_res_postcode_error"></span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-xs-3">
+                    <label for="res_city"><?php echo $this->translate('city'); ?></label>
+                </div>
+                <div class="col-xs-9">
+                    <input type="text" class="pdf-text res_city" id="first_res_city" name="res_city[]" placeholder="">
+                    <span class="validate_error" id="first_res_city_error"></span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-xs-3">
+                    <label for="res_country"><?php echo $this->translate('country_of_address'); ?></label>
+                </div>
+                <div class="col-xs-9">
+                    <select name="res_country[]" id="first_res_country" class="pdf-text">
+                        <option value=""><?php echo $this->translate('please_select'); ?></option>
+                        <?php foreach ($this->countriesList as $countryData): ?>
+                                <option value="<?php echo $countryData['id'] ?>"><?php echo $countryData['country_name'] ?></option>
+                        <?php endforeach; ?>                          
+                    </select>
+                    <div id="fuzzSearch1">
+                        <div id="fuzzNameContainer">
+                            <span class="fuzzName"></span> 
+                            <span class="fuzzArrow"></span>
+                        </div>
+                        <div id="fuzzDropdownContainer">
+                            <input type="text" value="" class="fuzzMagicBox" placeholder="search.." /> 
+                            <span class="fuzzSearchIcon"></span>
+                            <ul id="fuzzResults">                                
+                            </ul>
+                        </div>
+                    </div>
+                    <!--<input type="text" class="pdf-text res_country" id="first_res_country" name="res_country[]" placeholder="">-->
+                    <span class="validate_error" id="first_res_country_error"></span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-xs-3">
+                    <label for="res_phone_number"><?php echo $this->translate('phone_number'); ?></label>
+                </div>
+                <div class="col-xs-9">
+                    <input type="text" class="pdf-text res_phone_number" id="first_res_phone_number" name="res_phone_number[]" placeholder="">
+                    <span class="validate_error" id="first_res_phone_number_error"></span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-xs-3">
+                    <label for="res_wauseremail"><?php echo $this->translate('res_wausername'); ?> </label>
+                </div>
+                <div class="col-xs-9">
+                    <input type="text" class="pdf-text res_wauseremail" id="first_res_wausername" name="res_wauseremail[]" placeholder="">
+                    <span class="validate_error" id="first_res_wausername_error"></span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-xs-3">
+                    <label for="gender"><?php echo $this->translate('your'); ?> <?php echo $this->translate('num_2'); ?><sup><?php echo $this->translate('second_txt'); ?>nd</sup> <?php echo $this->translate('choice_as_your_txt'); ?></label>
+                </div>
+                <div class="col-xs-9 radioBtn">
+                    <input type="radio" name="sec_res_gender" id="sec_res_gender" value="mr">
+                    <label for="mr"><?php echo $this->translate('mr'); ?></label>
+                    <input type="radio" name="sec_res_gender" id="sec_res_gender" value="mrs">
+                    <label for="mrs"><?php echo $this->translate('mrs'); ?></label>
+                    <div class="clear"></div>                    
+                    <span class="validate_error" id="sec_res_gender_error"></span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-xs-3">
+                    <label for="res_name"><?php echo $this->translate('full_name'); ?></label>
+                </div>
+                <div class="col-xs-9">
+                    <input type="text" class="pdf-text res_name" id="sec_res_name" name="res_name[]" placeholder="">
+                    <span class="validate_error" id="res_name2_error"></span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-xs-3">
+                    <label for="res_address1"><?php echo $this->translate('address1'); ?></label>
+                </div>
+                <div class="col-xs-9">
+                    <textarea class="pdf-textarea res_address1" id="sec_res_address1" name="res_address1[]" rows="1"></textarea>
+                    <span class="validate_error" id="sec_res_address1_error"></span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-xs-3">
+                    <label for="res_address2"><?php echo $this->translate('address2'); ?></label>
+                </div>
+                <div class="col-xs-9">
+                    <textarea class="pdf-textarea res_address2" id="sec_res_address2" name="res_address2[]" rows="1"></textarea>
+                    <span class="validate_error" id="sec_res_address2_error"></span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-xs-3">
+                    <label for="res_zip"><?php echo $this->translate('zip'); ?></label>
+                </div>
+                <div class="col-xs-9">
+                    <input type="text" class="pdf-text res_postcode" id="sec_res_postcode" name="res_postcode[]" placeholder="">
+                    <span class="validate_error" id="sec_res_postcode_error"></span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-xs-3">
+                    <label for="res_city"><?php echo $this->translate('city'); ?></label>
+                </div>
+                <div class="col-xs-9">
+                    <input type="text" class="pdf-text res_city" id="sec_res_city" name="res_city[]" placeholder="">
+                    <span class="validate_error" id="sec_res_city_error"></span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-xs-3">
+                    <label for="res_country"><?php echo $this->translate('country_of_address'); ?></label>
+                </div>
+                <div class="col-xs-9">
+                    <select name="res_country[]" id="sec_res_country" class="pdf-text">
+                        <option value=""><?php echo $this->translate('please_select'); ?></option>
+                        <?php foreach ($this->countriesList as $countryData): ?>
+                                <option value="<?php echo $countryData['id'] ?>"><?php echo $countryData['country_name'] ?></option>
+                        <?php endforeach; ?>                          
+                    </select>
+                    <div id="fuzzSearch2">
+                        <div id="fuzzNameContainer">
+                            <span class="fuzzName"></span> 
+                            <span class="fuzzArrow"></span>
+                        </div>
+                        <div id="fuzzDropdownContainer">
+                            <input type="text" value="" class="fuzzMagicBox" placeholder="search.." /> 
+                            <span class="fuzzSearchIcon"></span>
+                            <ul id="fuzzResults">                                
+                            </ul>
+                        </div>
+                    </div>
+                    <!--<input type="text" class="pdf-text res_country" id="sec_res_country" name="res_country[]" placeholder="">-->
+                    <span class="validate_error" id="sec_res_country_error"></span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-xs-3">
+                    <label for="res_phone_number"><?php echo $this->translate('phone_number'); ?></label>
+                </div>
+                <div class="col-xs-9">
+                    <input type="text" class="pdf-text res_phone_number" id="sec_res_phone_number" name="res_phone_number[]" placeholder="">
+                    <span class="validate_error" id="sec_res_phone_number_error"></span>
+                </div>
+                <div class="clear"></div>
+                
+                <div class="col-xs-3">
+                    <label for="res_wauseremail"><?php echo $this->translate('res_wausername'); ?></label>
+                </div>
+                <div class="col-xs-9">
+                    <input type="text" class="pdf-text res_wauseremail" id="sec_res_wausername" name="res_wauseremail[]" placeholder="">
+                    <span class="validate_error" id="sec_res_wausername_error"></span>
+                </div>
+                <div class="clear"></div>
+                <div class="col-sm-12">
+                    <input type="hidden" name="testament_id" id="testament_id" value="" />
+                    <button type="button" class="next_btn btn" data-set="step1"><?php echo $this->translate('next'); ?></button>
+                </div>
+            </div>
+
+            <div class="stepFrm step2" style="display:none;">
+                <div class="col-xs-12">
+                    <p><strong><?php echo $this->translate('optional'); ?></strong> <?php echo $this->translate('third_section_txt'); ?></p>
+                </div>
+
+                <div class="col-xs-12">
+                    <input type="checkbox" name="birth_certificate_place_checked" id="birth_certificate_place_checked">
+                    <label for="birth_certificate_place"><?php echo $this->translate('birth_certificate_place_txt'); ?></label>
+                </div>
+                <div class="col-xs-12">
+                    <input type="text" class="pdf-text" id="birth_certificate_place" name="birth_certificate_place" placeholder="" style="display: none;">
+                    <span class="validate_error" id="birth_certificate_place_error"></span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-xs-12">
+                    <input type="checkbox" name="life_insurance_policies_checked" id="life_insurance_policies_checked">
+                    <label for="life_insurance_policies"><?php echo $this->translate('life_insurance_policies_txt'); ?></label>
+                </div>
+                <div class="col-xs-12">
+                    <input type="text" class="pdf-text" id="life_insurance_policies" name="life_insurance_policies" placeholder="" style="display: none;">
+                    <span class="validate_error" id="life_insurance_policies_error"></span>
+                </div>
+                <div class="clear"></div>
+                <div class="col-xs-12">
+                    <input type="checkbox" name="deposit_account_books_checked" id="deposit_account_books_checked">
+                    <label for="deposit_account_books"><?php echo $this->translate('deposit_account_books_txt'); ?></label>
+                </div>
+                <div class="col-xs-12">
+                    <input type="text" class="pdf-text" id="deposit_account_books" name="deposit_account_books" placeholder="" style="display: none;">
+                    <span class="validate_error" id="deposit_account_books_error"></span>
+                </div>
+                <div class="clear"></div>
+                <div class="col-xs-12">
+                    <input type="checkbox" name="any_property_checked" id="any_property_checked">
+                    <label for="any_property"><?php echo $this->translate('any_property_txt'); ?></label>
+                </div>
+                <div class="col-xs-12">
+                    <input type="text" class="pdf-text" id="any_property" name="any_property" placeholder="" style="display: none;">
+                    <span class="validate_error" id="any_property_error"></span>
+                </div>
+                <div class="clear"></div>
+                <div class="col-xs-12">
+                    <input type="checkbox" name="other_property_checked" id="other_property_checked"> 
+                    <label for="other_property"><?php echo $this->translate('other_property_txt'); ?></label>  
+                </div>                
+                <div class="col-xs-12">
+                    <input type="text" class="large-input-text" id="other_property" name="other_property" placeholder="describe document and where to find it" style="display: none;">
+                    <span class="validate_error" id="other_property_error"></span>
+                </div>
+                <div class="clear"></div>
+                <div class="col-xs-12 noLabel">
+                    <input type="checkbox" name="any_other_property_checked" id="any_other_property_checked">
+                    <label for="any_other_property"><?php echo $this->translate('other_property_txt'); ?></label>  
+                </div>                
+                <div class="col-xs-12">
+                    <input type="text" class="large-input-text" id="any_other_property" name="any_other_property" placeholder="describe document and where to find it" style="display: none;">
+                    <span class="validate_error" id="any_other_property_error"></span>
+                </div>
+                <div class="clear"></div>
+                <div class="col-xs-12">
+                    <input type="checkbox" name="account_checked" id="account_checked">
+                    <label for="account"><?php echo $this->translate('i_have_txt'); ?></label>
+                    <select class="x-small-text" id="num_accounts" name="num_accounts">
+                        <?php $i=0;
+                            while($i<10){ $i++;?>
+                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option> 
+                            <?php } ?>
+                    </select>
+                   <!-- <input type="text" class="x-small-text" id="num_accounts" name="num_accounts" min="0" maxlength="10" placeholder="" disabled="">
+                    <a href="javascript:void(0);"><img src="http://52.4.193.184/www/images/done-icon.png" class="x-small-text" id="addBankAccountButton"> </a>-->
+                    <label for="account"><?php echo $this->translate('account_txt'); ?></label> 
+                    <span class="validate_error" id="num_accounts_error"></span>                    
+                </div>
+                <div class="clear"></div>
+                <div id="container_bankaccount">
+                    <div id="single_account_group">
+                    </div>
+                </div>
+                <a href="javascript:void(0);" class="add_more_btn" id="bankAccountaddMore" style="display: none;"><?php echo $this->translate('add_more'); ?></a>
+                <div class="clear"></div>
+
+                <div class="col-xs-12">
+                    <input type="checkbox" name="active_investments_checked" id="active_investments_checked" value="">
+                    <label for="active_investments"><?php echo $this->translate('active_investments_txt'); ?></label>
+                </div>
+                <div class="col-xs-12">
+                    <input type="text" class="pdf-text" id="active_investments" name="active_investments" placeholder="" style="display: none;">
+                    <span class="validate_error" id="active_investments_error"></span>
+                </div>
+                <div class="clear"></div>
+                <div class="col-xs-12">
+                    <input type="checkbox" name="other_possessions_checked" id="other_possessions_checked" value="">
+                    <label for="other_possessions"><?php echo $this->translate('other_possessions_txt'); ?></label>
+                </div>
+                <div class="col-xs-12">
+                    <input type="text" class="pdf-text" id="other_possessions" name="other_possessions" placeholder="" style="display: none;">
+                    <span class="validate_error" id="other_possessions_error"></span>
+               </div>
+                <div class="clear"></div>
+                <div class="col-xs-12">
+                    <input type="checkbox" name="social_account_checked" id="social_account_checked" value="">
+                    <label for="social_account"><?php echo $this->translate('social_account_txt'); ?></label>
+                </div>
+                <div id="social_account_set" style="display: none;">
+                    <div class="social_account_group" id="tb">
+                        <div class="closebtn" onclick="popupClose(this);"></div>
+                        <div class="col-xs-9">
+                            <input type="text" class="pdf-text" id="social_url1" name="social_url[]" placeholder="social media account site/name" />
+                            <span class="validate_error" id="social_url1_error"></span>
+                        </div>
+                        <div class="clear"></div>
+
+                        <div class="col-xs-9">
+                            <input type="text" class="pdf-text valid" id="social_email1" name="social_email[]" placeholder="social media account username/email address" />
+                            <span class="validate_error" id="social_email1_error"></span>
+                        </div>
+                        <div class="clear"></div>
+
+                        <div class="col-xs-9">
+                            <input type="password" class="pdf-text valid" id="social_password1" name="social_password[]" placeholder="social media account password (case sensitive)" />
+                            <span class="validate_error" id="social_password1_error"></span>
+                        </div>
+                        <div class="clear"></div>
+
+                       <div class="col-xs-9">
+                            <input type="text" class="pdf-text" id="social_ques1" name="social_ques[]" placeholder="social media account answers to security question" />
+                            <span class="validate_error" id="social_ques1_error"></span>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="col-xs-9">
+                            <label for="social_ans"><?php echo $this->translate('social_want_this_account_txt'); ?></label>
+                        </div>
+                        <div class="col-xs-9 radioBtns clearLable">
+                            <input type="radio" name="social_ans1" class="social_ans" value="1" onclick="accountStatus(this);">
+                            <label for="deleted"> <?php echo $this->translate('deleted'); ?> </label>
+                            <input type="radio" name="social_ans1" class="social_ans" value="2" onclick="accountStatus(this);">
+                            <label for="memorialized"> <?php echo $this->translate('memorialized'); ?> </label>
+                            <input type="radio" name="social_ans1" class="social_ans" value="3" onclick="accountStatus(this);">
+                            <label for="managed by"> <?php echo $this->translate('managed_by'); ?> </label>
+                            <span class="validate_error" id="social_ans1_error"></span> 
+                        </div>
+                        <div class="col-xs-9">
+                            <input type="text" class="pdf-small-text" id="social_manage_username1" name="social_manage_username1" placeholder="" style="display: none;">
+                            <span class="validate_error" id="social_manage_username1_error"></span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <a href="javascript:void(0);" class="add_more_btn" id="socialAccountaddMore" style="display: none;"><?php echo $this->translate('add_more'); ?></a> </div>
+                <div class="clear"></div>
+                <div class="col-sm-12">
+                    <button type="button" class="pre_btn btn"><?php echo $this->translate('prev'); ?></button>
+                    <button type="button" class="next_btn btn" data-set="step2"><?php echo $this->translate('next'); ?></button>
+                </div>
+            </div>
+
+            <div class="stepFrm step3" style="display:none;">
+                <div class="col-xs-12">
+                    <p><strong><?php echo $this->translate('mandatory'); ?></strong> <?php echo $this->translate('fourth_section_txt'); ?>
+                        <br /> <?php echo $this->translate('estate_divided_txt'); ?></p>
+                </div>
+                <div class="col-xs-12">
+                    <input type="checkbox" name="estate_checked" id="estate_checked" value="">
+                    <label for="estate_checked_label"><?php echo $this->translate('i_devise_txt'); ?></label>
+                </div>
+                <div class="clear"></div>
+                <div id="container_estate_set" style="display: none;">
+                    <div class="single_estate_group" id="tb1">
+                        <div class="closebtn" onclick="popupClose(this);"></div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <input type="text" class="pdf-small-text" id="item_name1" name="item_name[]" placeholder="describe item(s) you give here">
+                                <span class="validate_error" id="item_name1_error"></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <input type="text" class="pdf-small-text" id="beneficiairy1" name="beneficiairy[]" placeholder="write beneficiairy name and kinship here">
+                                <span class="validate_error" id="beneficiairy1_error"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <a href="javascript:void(0);" class="add_more_btn" id="estateaddMore" name="estateaddMore" style="display: none;"><?php echo $this->translate('add_more'); ?></a>
+                <div class="clear"></div>
+                <div class="col-xs-12">
+                    <input type="checkbox" name="estate_devise_checked" id="estate_devise_checked" value="">
+                    <label><?php echo $this->translate('percentage_estate_txt'); ?></label>
+                </div>
+                <div class="clear"></div>
+                <div id="container_estate_devise_set">  
+                </div>        
+                <div class="clear"></div>
+                <a href="javascript:void(0);" class="add_more_btn" id="estateDeviseAddMore" style="display: none;"><?php echo $this->translate('add_more'); ?></a>
+                <div id="container_estate_devise_remaining"> 
+                    <div class="col-xs-3">
+                        <input type="text" class="x-small-text" style="width: 50px;" id="remaining_percentage" name="remaining_percentage" placeholder="" />
+                        &nbsp;%</div>
+                    <div class="col-xs-9">
+                        <p><?php echo $this->translate('remaining_txt'); ?></p>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="col-xs-12">
+                    <label for="male"> <?php echo $this->translate('special_request'); ?></label>
+                </div>
+                <div class="col-xs-12">
+                    <textarea class="textarea" id="testament_request" name="testament_request"></textarea>
+                    <span class="validate_error" id="testament_request_error"></span>
+                </div>
+                
+                <div class="clear"></div>
+                <div class="col-sm-12">
+                    <button type="button" class="pre_btn btn"><?php echo $this->translate('prev'); ?></button>
+                    <a href="javascript:void(0);" class="btn" id="previewBtn"><?php echo $this->translate('next'); ?></a>
+                </div>
+            </div>
+
+            <div class="stepFrm step4" style="display:none;">
+                <div class="col-xs-12">
+                    <p><?php echo $this->translate('witness_txt'); ?>
+                    <br /> <?php echo $this->translate('witness_note_txt'); ?> </p>
+                </div>
+                <div class="col-xs-12">
+                    <a href="javascript:void(0);" class="add_more_btn" onclick="popupOpen('witnessAlertPopup')"><?php echo $this->translate('add_witness_txt'); ?></a>
+                </div>
+                <hr>
+                <div class="col-xs-12">
+                    <div id="screen"></div>
+                </div>
+                <div class="clear"></div>
+                <div class="col-xs-12">
+                    <h2><?php echo $this->translate('note'); ?> : </h2>
+                    <p><?php echo $this->translate('wa_smart_txt'); ?></p>
+                </div>
+                <div class="col-sm-12">
+                    <button type="button" class="pre_btn btn"><?php echo $this->translate('prev'); ?>Previous</button>
+                    <button type="button" class="next_btn btn" data-set="step3"><?php echo $this->translate('next'); ?></button>
+                </div>
+            </div>
+
+            <div class="stepFrm step5" style="display:none;">
+                <div class="col-xs-12">
+                    <p><?php echo $this->translate('record_audio_txt'); ?></p>
+                </div>
+                <div class="col-xs-12">
+                    <div class="col-xs-6">
+                        <a href="javascript:void(0)" id="shareDevice" class="btn microphone" onclick="initAudio();"><?php echo $this->translate('access_microphone'); ?></a>
+                        <a id="save_recored_audio" href="" class="btn"><?php echo $this->translate('download'); ?></a>
+                        <span class="validate_error" id="recored_audio_error"></span>
+                        <canvas id="analyser" width="200" height="100" style="display: none;"></canvas>
+                        <canvas id="wavedisplay" width="200" height="100" style="display: none;"></canvas>
+                    </div>  
+                    <div class="col-xs-1"> <b></b> </div>
+                    <div class="col-xs-5"><!--OR
+                        <ul class="attachments-icon">
+                            <li class="active" id="file">
+                                <input name="" type="file" id="recorded_audio_file" /><img src="/new_images/attachment2.png"> <?php echo $this->translate('attach_audio_file'); ?>
+                            </li>
+                        </ul>  -->
+                    </div>
+                    <div class="clear"></div>                    
+                    <div class="col-xs-6">
+                        <img id="record" src="<?php echo $this->makeUrl('/new_images/mic-record.png'); ?>" height="80px" onclick="toggleRecording(this);">
+                    </div>                                              
+                    <div class="col-xs-6">
+                        <!--<audio id="recorded_file" controls>
+                          <source src="" type="audio/mpeg">
+                        </audio>-->
+                    </div>
+                    <div class="clear"></div>   
+                </div>
+                <div class="clear"></div>
+                <!-- <a href="javascript:void(0);" class="pre_btn btn" onclick="popupOpen('signature-pad');">OpenSignatureBox</a> -->           
+                <div class="clear"></div>
+
+                <div class="col-sm-12">
+                    <button type="button" class="pre_btn btn"><?php echo $this->translate('prev'); ?></button>
+                    <button type="button" class="next_btn btn" data-set="step4"><?php echo $this->translate('next'); ?></button>
+                </div>
+            </div>
+
+            <div class="stepFrm" style="display:none;">
+                <div class="col-xs-12">
+                    <p><?php echo $this->translate('attachment_txt'); ?></p>
+                </div>
+                <div class="col-xs-12">
+                    <ul class="clearfix attachments">
+                        <li class="active" id="file">
+                            <input name="" type="file" id="fileLoader" /><img src="/new_images/attachment2.png"> <?php echo $this->translate('file_attachment'); ?>
+                        </li>
+
+                        <li class="" id="video">
+                            <input name="" type="file" id="videoLoader" /><img src="/new_images/video2.png"> <?php echo $this->translate('video_file'); ?>
+                        </li>
+
+                        <li class="" id="images">
+                            <img src="/new_images/images.png" multiple> <?php echo $this->translate('image_gallery'); ?>
+                        </li>
+
+                        <li class="" id="audio">
+                            <input name="" type="file" id="audioLoader" /><img src="/new_images/audio2.png"> <?php echo $this->translate('audio_file'); ?>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="clear"></div>
+                <div class="col-sm-12" style="margin-top:30px;">
+                    <a href="https://vimeo.com/126659029" data-size="size-wide" data-remote="http://player.vimeo.com/video/126659029" class="videoPoup" data-toggle="lightbox"><img src="/new_images/video.jpg" alt="" width="150" /></a>
+                    <a href="/new_images/ban_pic1.png" data-size="size-wide" class="videoPoup" data-toggle="lightbox"><img src="/new_images/ban_pic1.png" alt="" width="150" /></a>
+                </div>
+
+                <div class="col-xs-12">
+                    <div class="tabs_content" id="file2">
+                        <p><?php echo $this->translate('attachment_icon'); ?></p>
+                    </div>
+
+                    <div class="tabs_content" id="video2">
+                        <p><?php echo $this->translate('video_icon'); ?></p>
+                    </div>
+
+                    <div class="tabs_content" id="images2">
+                        <p><?php echo $this->translate('image_gallery_thumb'); ?></p>
+                    </div>
+
+                    <div class="tabs_content" id="audio2">
+                        <p><?php echo $this->translate('audio_file_icon'); ?></p>
+                    </div>
+                </div>
+                <div class="clear"></div>
+
+                <div class="col-sm-12">
+                    <button type="button" class="pre_btn btn"><?php echo $this->translate('prev'); ?>Previous</button>
+                    <button type="button" class="next_btn btn" data-set="step5"><?php echo $this->translate('next'); ?></button>
+                </div>
+            </div>
+
+            <div class="stepFrm step7" style="display:none;">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="col-xs-12">
+                            <p><strong><?php echo $this->translate('select_receiver_txt'); ?></strong></p>
+                        </div>
+                        <div style="clear:both"></div>
+                        <div class="col-xs-12">
+                            <div id="searchFriends">
+                                <ul>
+                                <?php 
+                                if(!empty($this->friendsRowset)):
+                                    foreach ($this->friendsRowset as $friend): ?>  
+                                        <li alt="57600" class="user_list">
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <?php 
+                                                    if(!empty($friend->userImage)):
+                                                        $img = $friend->userImage;
+                                                    else :
+                                                        $img = "../new_images/user_icon.png";
+                                                    endif;
+                                                ?>
+                                                <td><img src="<?php echo $img; ?>" alt="" /></td>
+                                                <td><h2> <?php echo $friend->userNickName; ?> </h2> <div class="status online"></div></td>
+                                                <td>
+                                                    <input type="checkbox" name="">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        </li>   
+                                    <?php endforeach; ?> 
+                                <?php endif; ?>  
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div style="clear:both"></div>
+                        <div class="col-xs-12">
+                            <p><strong><?php echo $this->translate('select_trustees_txt'); ?></strong></p>
+                        </div>
+                        <div style="clear:both"></div>
+                        <div class="col-xs-12">
+                            <div id="searchFriends">
+                                <ul>
+                                    <li alt="57600" class="user_list" id="google" onclick="selectUser('sarvesh');">
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td><img src="images/user_icon.png"></td>
+                                                <td><?php echo $this->translate(''); ?>sarvesh</td>
+                                                <td>
+                                                    <input type="checkbox" name="">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                    <li alt="57600" class="user_list" id="google" onclick="selectUser('sarvesh');">
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td><img src="/new_images/user_icon.png"></td>
+                                                <td><?php echo $this->translate(''); ?>sarvesh</td>
+                                                <td>
+                                                    <input type="checkbox" name="">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                    <li alt="57600" class="user_list" id="google" onclick="selectUser('sarvesh');">
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td><img src="/new_images/user_icon.png"></td>
+                                                <td><?php echo $this->translate(''); ?>sarvesh</td>
+                                                <td>
+                                                    <input type="checkbox" name="">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                    <li alt="57600" class="user_list" id="google" onclick="selectUser('sarvesh');">
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td><img src="/new_images/user_icon.png"></td>
+                                                <td><?php echo $this->translate(''); ?>sarvesh</td>
+                                                <td>
+                                                    <input type="checkbox" name="">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                    <li alt="57600" class="user_list" id="google" onclick="selectUser('sarvesh');">
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td><img src="/new_images/user_icon.png"></td>
+                                                <td><?php echo $this->translate(''); ?>sarvesh</td>
+                                                <td>
+                                                    <input type="checkbox" name="">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                    <li alt="57600" class="user_list" id="google" onclick="selectUser('sarvesh');">
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td><img src="/new_images/user_icon.png"></td>
+                                                <td><?php echo $this->translate(''); ?>sarvesh</td>
+                                                <td>
+                                                    <input type="checkbox" name="">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                    <li alt="57600" class="user_list" id="google" onclick="selectUser('sarvesh');">
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td><img src="/new_images/user_icon.png"></td>
+                                                <td><?php echo $this->translate(''); ?>sarvesh</td>
+                                                <td>
+                                                    <input type="checkbox" name="">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                    <li alt="57600" class="user_list" id="google" onclick="selectUser('sarvesh');">
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td><img src="/new_images/user_icon.png"></td>
+                                                <td><?php echo $this->translate(''); ?>sarvesh</td>
+                                                <td>
+                                                    <input type="checkbox" name="">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                    <li alt="57600" class="user_list" id="google" onclick="selectUser('sarvesh');">
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td><img src="/new_images/user_icon.png"></td>
+                                                <td><?php echo $this->translate(''); ?>sarvesh</td>
+                                                <td>
+                                                    <input type="checkbox" name="">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="col-xs-12 download"><a href="javascript:void(0)" onclick="" class="btn"><?php echo $this->translate('download_testament'); ?></a></div>
+
+                <div class="col-sm-12">
+                    <button type="button" class="pre_btn btn"><?php echo $this->translate('prev'); ?></button>
+                    <button type="button" class="btn"><?php echo $this->translate('submit'); ?></button>
+                </div>
+            </div>
+        </form>
+<!--
+        <form id="fileupload" action="//jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data">
+            <noscript>
+                <input type="hidden" name="redirect" value="">
+            </noscript>
+            <div class="row fileupload-buttonbar">
+                <input type="file" name="files[]" multiple id="uplaodMultiple" style="display:none;">
+            </div>
+            
+            <table role="presentation" class="table table-striped" id="imagesUploading">
+                <tbody class="files"></tbody>
+            </table>
+        </form>
+        <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-filter=":even">
+            <div class="slides"></div>
+            <h3 class="title"></h3>
+            <a class="prev">‹</a>
+            <a class="next">›</a>
+            <a class="close">×</a>
+            <a class="play-pause"></a>
+            <ol class="indicator"></ol>
+        </div> -->
+    </div>
+</div>
+<!--Page Content Starts-->
+
+<!--Preview Testament-->
+<div class="bg_transpop" id="pdfPreviewPopup">
+    <div class="overlay"></div>
+    <div class="contentpopWrap">
+        <div class="contentMaxpop">
+            <!--<div class="closebtn" id="previewAlertPopupClose"></div>-->
+            <iframe class="preview-pdf-name" src="" scrolling="yes"></iframe>                 
+            <div class="col-sm-12">
+                <button type="button" class="pre_btn btn" id="testament-edit"> Edit </button>
+                <button type="button" class="next_btn btn" id="testament-confirm"> Confirm </button>
+            </div>
+            <!--<iframe src="https://docs.google.com/gview?embedded=true&url=http://52.4.193.184/www/files/WA-TESTAMENT INFO-FOR-USERS.pdf"></iframe>-->
+            <!--<embed class="preview-pdf-name" src="WA-TESTAMENT INFO-FOR-USERS.pdf"></embed>-->
+        </div>
+    </div>
+</div>
+<!--Preview Testament--> 
+<div class="bg_transpop" id="signature-pad"> 
+    <form method="POST" action="">
+        <div class="overlay"></div>
+        <div class="contentpopWrap">
+            <div class="contentpop">
+                <div class="closebtn" id="signaturePadClose"></div>
+                <div class="heading"><h1> <?php echo $this->translate('signature'); ?> </h1></div>
+		<canvas class="pad"></canvas>
+		<fieldset>
+                    <input type="reset" value="clear" class="btn" />
+                    <button type="button" id ="save-signature" class="btn"> save </button>
+		</fieldset>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--Add witness-->
+<div class="bg_transpop" id="witnessAlertPopup">
+    <form id="signup_form" autocomplete="off">
+        <div class="overlay"></div>
+        <div class="contentpopWrap">
+            <div class="contentpop">
+                <div class="closebtn" id="witnessAlertPopupClose"></div>
+                <div class="heading"><h1>Alert </h1></div>
+                <hr>
+                <p>After sending out an invitation to witnesses you cannot make any further change to your WA-testament, do you want to invite your witness now or do you want to review your WA-testament?</p><br>
+                  <button type="button" class="pre_btn btn" id="reviewBtn">Review</button>
+                  <button type="button" class="pre_btn btn" id="sendInvitationBtn" onclick="popupOpen('witnessAddForm');">Send Witness Invitation</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="bg_transpop" id="witnessAddForm">
+    <form id="witness_invite_form" autocomplete="off">
+        <div class="overlay"></div>
+        <div class="contentpopWrap">
+            <div class="contentpop">
+            <div class="ajax-leader"></div>    
+                <div class="forget_heading">Add Witness Form</div>
+                <div class="closebtn" id="witnessAddFormClose"></div>
+                <div id="witness_response"></div>
+                <div class="inputvaluRow relative">
+                    <input type="text" class="typeahead" id="user-search-box" name="witness_name" placeholder="Witness Name">
+                    <ul class="userList">
+                        <input type="text" style="background-color: #fff; border: 1px solid #000; width:230px; margin:5px; padding: 5px;" class="pdf-small-text" name="user-search" id="user-search" />
+                    <?php 
+                        if(!empty($this->friendsRowset)):
+                            foreach ($this->friendsRowset as $friend): ?>                       
+                        <li>
+                        <?php 
+                            if(!empty($friend->userImage)):
+                                $img = $friend->userImage;
+                            else :
+                                $img = "../new_images/user_icon.png";
+                            endif;
+                        ?>
+                            <a href="javascript:void(0);" onclick="selectUser('<?php echo $friend->userNickName; ?>','<?php echo $friend->userEmail; ?>');">
+                                <img src="<?php echo $img; ?>" alt="" />
+                                <h2> <?php echo $friend->userNickName; ?> <small>Online</small></h2>
+                                <div class="status online"></div>
+                            </a>
+                        </li>    
+                    <?php endforeach; ?> 
+                    <?php endif; ?>                  	
+                    </ul>
+                </div>
+                <span class="validate_error" id="user-search-box_error"></span>
+                <div class="inputvaluRow">
+                    <input type="text" class="" id="witness_email" name="witness_email" placeholder="WA Username/email" readonly="true"/>
+                </div>    
+                <span class="validate_error" id="witness_email_error"></span>              
+                <div class="inputvaluRow">
+                    <input type="text" class="" id="witness_idtype" name="witness_idtype" placeholder="Option to Id type of your witness"/>
+                </div>    
+                <span class="validate_error" id="witness_idtype_error"></span>
+                <div class="inputvaluRow">
+                    <input type="text" class="" id="witness_idNumber" name="witness_idNumber" placeholder="Option to Id number of your witness"/>   
+                </div>         
+                <span class="validate_error" id="witness_idNumber_error"></span>    
+                <button type="button" class="next btn" id="witnessInviteBtn" name="witnessInviteBtn">Send Invite</button>  
+                <span class="valid" id="witness_response"></span>
+            </div>
+        </div>
+    </form>   
+</div>
+<!--Add witness-->
+<script>
+   /* (function(e) {
+        e.fn.chekUpdate = function() {
+            e(this).each(function() {
+                $(':checkbox', this).csCheckBox();
+                $('form', this).on('reset', function() {
+                    csReset(elem)
+                });
+            })
+        }
+    })(jQuery); 
+    //$(".check").chekUpdate(); 
+
+    $(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+    });
+
+
+    $('#images').click(function() {
+        $('#uplaodMultiple').trigger('click');
+        $('#fileupload').slideDown();
+    });
+*/
+</script><!--
+<script id="template-upload" type="text/x-tmpl">
+    {% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-upload fade">
+        <td>
+            <span class="preview"></span>
+        </td>
+        <td>
+            <p class="name">{%=file.name%}</p>
+            <strong class="error text-danger"></strong>
+        </td>
+        <td>
+            <p class="size">Processing...</p>
+            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+            </div>
+        </td>
+        <td>
+            {% if (!i && !o.options.autoUpload) { %}
+            <button class="btn btn-primary start" disabled>
+                <i class="glyphicon glyphicon-upload"></i>
+                <span>Start</span>
+            </button>
+            {% } %} {% if (!i) { %}
+            <button class="btn btn-warning cancel">
+                <i class="glyphicon glyphicon-ban-circle"></i>
+                <span>Cancel</span>
+            </button>
+            {% } %}
+        </td>
+    </tr>
+    {% } %}
+</script>
+<!-- The template to display files available for download --><!--
+<script id="template-download" type="text/x-tmpl">
+    {% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-download fade">
+        <td>
+            <span class="preview">
+            {% if (file.thumbnailUrl) { %}
+                <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
+            {% } %}
+        </span>
+        </td>
+        <td>
+            <p class="name">
+                {% if (file.url) { %}
+                <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl? 'data-gallery': ''%}>{%=file.name%}</a> {% } else { %}
+                <span>{%=file.name%}</span> {% } %}
+            </p>
+            {% if (file.error) { %}
+            <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+            {% } %}
+        </td>
+        <td>
+            <span class="size">{%=o.formatFileSize(file.size)%}</span>
+        </td>
+        <td>
+            {% if (file.deleteUrl) { %}
+            <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}" {% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}' {% } %}>
+                <i class="glyphicon glyphicon-trash"></i>
+                <span>Delete</span>
+            </button>
+            <input type="checkbox" name="delete" value="1" class="toggle"> {% } else { %}
+            <button class="btn btn-warning cancel">
+                <i class="glyphicon glyphicon-ban-circle"></i>
+                <span>Cancel</span>
+            </button>
+            {% } %}
+        </td>
+    </tr>
+    {% } %}
+</script>-->
+<!-- Created by Sarvesh -->
+<!--
+<script src="<?php //echo $this->makeUrl('/js/jquery.ui.widget.js');?>"></script>
+<script src="<?php //echo $this->makeUrl('/js/tmpl.min.js');?>"></script>
+<script src="<?php ///echo $this->makeUrl('/js/jquery.iframe-transport.js');?>"></script>
+<script src="<?php //echo $this->makeUrl('/js/jquery.fileupload.js');?>"></script>
+<script src="<?php //echo $this->makeUrl('/js/jquery.fileupload-process.js');?>"></script>
+<script src="<?php //echo $this->makeUrl('/js/jquery.fileupload-image.js');?>"></script>
+<script src="<?php //echo $this->makeUrl('/js/jquery.fileupload-validate.js');?>"></script>
+<script src="<?php //echo $this->makeUrl('/js/jquery.fileupload-ui.js');?>"></script> -->
+
+<script src="<?php echo $this->makeUrl('/js/recorder.js');?>"></script>
+<script src="<?php echo $this->makeUrl('/js/main.js');?>"></script>
+<script src="<?php echo $this->makeUrl('/js/audiodisplay.js');?>"></script>
+<script src="<?php echo $this->makeUrl('/js/jquery.signaturepad.js');?>"></script>
+<script src="<?php echo $this->makeUrl('/js/json2.min.js');?>"></script>
+<script src="<?php echo $this->makeUrl('/js/fuse.min.js'); ?>"></script>
+<script src="<?php echo $this->makeUrl('/js/fuzzyDropdown.min.js'); ?>"></script> 
+<script src="<?php echo $this->makeUrl('/js/ekko-lightbox.min.js');?>"></script>
+<script src="<?php echo $this->makeUrl('/js/testament.js'); ?>"></script> 
+<link href="<?php echo $this->makeUrl('/css/jquery.signaturepad.css');?>" rel="stylesheet" type="text/css" />
+<script>
+  (function(window) {
+    var $canvas,
+        onResize = function(event) {
+          $canvas.attr({
+            height: 300,
+            width: 300
+          });
+        };
+
+    $(document).ready(function() {
+      $canvas = $('canvas');
+      window.addEventListener('orientationchange', onResize, false);
+      window.addEventListener('resize', onResize, false);
+      onResize();
+
+      $('form').signaturePad({
+        drawOnly: true,
+        defaultAction: 'drawIt',
+        validateFields: false,
+        lineWidth: 0,
+        output: null,
+        sigNav: null,
+        name: null,
+        typed: null,
+        clear: 'input[type=reset]',
+        typeIt: null,
+        drawIt: null,
+        typeItDesc: null,
+        drawItDesc: null
+      });
+    });
+  }(this));
+  </script>
