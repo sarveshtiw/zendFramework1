@@ -1,0 +1,84 @@
+<html>
+<head>
+<title>WA</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<table width="648" border="0" align="center" cellpadding="0" cellspacing="0" style="font-family:Arial, sans-serif;">
+  <tbody>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>
+      	<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">,
+          <tr>
+            <td style="width:24px; height:110px;"><img src="<?php echo $this->baseUrl ?>/images/mailer_format_01.png" style="vertical-align: top;" width="24" height="110" alt=""></td>
+            <td align="left" valign="middle" style="background:#e6e6e6; border-bottom:1px solid #c9c9c9; height:109px;">
+            
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td align="left" valign="middle" style="height:108px; width:60px;"><img src="<?php echo $this->baseUrl ?>/images/logo.png" width="233" height="60" alt=""/></td>
+                </tr>
+            </table></td>
+            <td style="width:24px; height:110px;"><img src="<?php echo $this->baseUrl ?>/images/mailer_format_03.png" width="24" height="110" style="vertical-align: top;" alt=""></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr>
+            <td style="width:12px;">&nbsp;</td>
+            <td style="background:#f2f2f2; padding:20px; font-size:16px; color:#333333; line-height:22px;">
+                <p><?php echo $this->translate('email_txt_3');?> <span style="color:#0084b5"> <?php echo $this->name; ?></span> <?php echo $this->translate('email_txt_3b');?>, </p>
+                    
+                    <p><?php echo $this->translate('email_txt_9');?> <?php echo $this->user_email ?><?php echo $this->translate('email_txt_9b');?> <?php echo $this->translate('email_txt_11');?> <?php echo $this->change_user_email ?><?php echo $this->translate('email_txt_11b');?>.</p>
+                   
+                    <p> 
+                         <?php echo $this->translate('email_txt_12');?> <a href="<?php echo $this->confirm_url ?>"><?php echo $this->confirm_url ?></a>.
+                    </p>
+                 
+                 <p><?php echo $this->translate('email_txt_6');?> <a href="mailto:support@wa-app.com" style="color:#0084b5; text-decoration:none;">support@wa-app.com</a>
+            </p>
+                 <p><?php echo $this->translate('email_txt_7');?>,  <br>
+			<?php echo $this->translate('email_txt_8');?>.  
+			</p>
+            </td>
+            <td style="width:15px;">&nbsp;</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td><img src="<?php echo $this->baseUrl ?>/images/mailer_format_07.png" width="648" height="113" style="vertical-align: top;" alt=""></td>
+    </tr>
+    <tr>
+      <td>
+      	<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr>
+          	<td style="width:189px; height:119px;"><img src="<?php echo $this->baseUrl ?>/images/mailer_format_08.png" width="189" height="119" style="vertical-align: top;" alt=""></td>
+			<td style="width:270px; height:91px;">
+            	<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td style="width:270px; height:91px;"><img src="<?php echo $this->baseUrl ?>/images/mailer_format_09.png" alt="" width="270" height="91" style="vertical-align: top;" usemap="#Map" border="0"></td>
+                  </tr>
+                  <tr>
+                    <td style="width:270px; height:28px;"><img src="<?php echo $this->baseUrl ?>/images/mailer_format_11.png" width="270" height="28" style="vertical-align: top;" alt=""></td>
+                  </tr>
+                </table>
+            </td>
+            <td style="width:189px; height:119px;"><img src="<?php echo $this->baseUrl ?>/images/mailer_format_10.png" width="189" height="119" style="vertical-align: top;" alt=""></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<map name="Map"><area shape="circle" coords="184,27,21" href=mailto:"support@wa-app.com">
+	<area shape="circle" coords="135,27,21" href="http://www.twitter.com/waapptweet">
+    <area shape="circle" coords="85,27,21" href="http://www.facebook.com/waappbook">
+</map>
+</body>
+</html>
