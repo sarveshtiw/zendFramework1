@@ -1,1 +1,403 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>wa-klik - the social app bringing past and present into the future.</title>
 
+<link href="<?php echo $this->makeUrl('/www/css/layout.css') ?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo $this->makeUrl('/www/css/custom.css') ?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo $this->makeUrl('/www/wa-app/jquery.ui.all.css') ?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo $this->makeUrl('/www/css/inner_layout.css') ?>" rel="stylesheet" type="text/css" />
+
+<script src="<?php echo $this->makeUrl('/www/js/jquery-1.8.0.min.js') ?>"></script>
+<script src="<?php echo $this->makeUrl('/www/js/jquery.easing.min.js') ?>"></script>
+<script src="<?php echo $this->makeUrl('/www/js/owl-carousel/owl.carousel.js') ?>"></script>
+<script src="<?php echo $this->makeUrl('/www/js/jquery.easy-ticker.js') ?>"></script>
+<script src="<?php echo $this->makeUrl('/www/js/functions.js')?>"></script>
+<script src="<?php echo $this->makeUrl('/www/js/jquery.ui.core.js') ?>"></script>
+<script src="<?php echo $this->makeUrl('/www/js/jquery.ui.widget.js')?>"></script>
+<script src="<?php echo $this->makeUrl('/www/js/jquery.ui.datepicker.js')?>"></script>
+<script src="<?php echo $this->makeUrl('/www/js/jquery.iosslider.js') ?>"></script>
+<script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
+
+<script src = "<?php echo $this->makeUrl('/www/js/jquery-ui-timepicker-addon.js') ?>"></script>
+<script src="<?php echo $this->makeUrl('/www/msgbox/jquery.msgbox.js') ?>"></script>
+<link href="<?php echo $this->makeUrl('/www/msgbox/jquery.msgbox.css') ?>" rel="stylesheet" />
+
+
+<?php
+            $config = Zend_Controller_Front::getInstance()->getParam('bootstrap');
+            $apiKey = $config->getOption("quickblox_details_new");
+            $apiKey['app_id']=$apiKey['app_id'];//"9361";
+            $apiKey['auth_key']=$apiKey['auth_key'];//"h4GL7ABbpGVTBgV";
+            $apiKey['auth_secret']=$apiKey['auth_secret'];//"Lqf9MaZjuce9Cen";
+?>
+
+<script>
+            jQuery.support.cors = true;
+        var QBAPP = {
+	appID: <?php echo $apiKey['app_id'];?>,
+	authKey: '<?php echo $apiKey['auth_key'];?>',
+	authSecret: '<?php echo $apiKey['auth_secret'];?>',
+	publicRoom: 'public'
+};
+var chatConfig={
+        server: 'chatwaapp.quickblox.com',
+	muc: 'muc.chatwaapp.quickblox.com',
+	bosh: 'http://chatwaapp.quickblox.com:5280',
+	amazon: 'https://qb-wa-media.s3.amazonaws.com/'
+}
+        </script>
+        <script src="<?php echo $this->makeUrl('/www/quick_blox2/quickblox(1).js') ?>"></script>
+	<script src="<?php echo $this->makeUrl('/www/quick_blox2/plugins/chat/quickblox.chat.js') ?>"></script>
+        <script src="<?php echo $this->makeUrl('/www/quick_blox2/js/jquery.timeago.js') ?>"></script>
+        <script src="<?php echo $this->makeUrl('/www/quick_blox2/js/helpers.js') ?>"></script>
+        <script src="<?php echo $this->makeUrl('/www/quick_blox2/js/chat3.js') ?>"></script>
+<script>
+//  $(window).bind('beforeunload', function() { 
+//        alert("Unload");
+//        var id ="";
+//       $.ajax({
+//        type: "POST",
+//        url: "/ajax/change-online-status",
+//        dataType: 'html',
+//        data: {id: id, user_status: 0},
+//    })
+//            .done(function () {
+//
+//     });
+//
+//});
+
+$(document).ready(function() {
+
+$('#header .loginInfo .li_buttons ul li a').mouseup(function(fliter){
+			if($(this).parents('li').find('.lib_popup').css('display')=='block'){
+				$(this).parents('li').find('.lib_popup').fadeOut('fast');
+			}else{
+				$('.lib_popup').fadeOut('fast');
+				$(this).parents('li').find('.lib_popup').fadeIn('fast');
+			}
+			});
+			$('.lib_popup').mouseup(function(){
+				return false;
+			});
+			$(this).mouseup(function(fliter){
+				if(!($(fliter.target).parent('li').length > 0)){
+					$('.lib_popup').fadeOut('fast');
+				}
+			});
+});
+</script>
+<style>
+  .language{
+          background: url("/www/images/flags/<?php echo $this->SetLanguageFlag();?>") no-repeat;
+          border-radius: 23px;
+          background-size: 49px 45px;
+          
+  }
+#header .logo a{
+	display:block;
+	position:absolute;
+	width:100%;
+	height:100%;
+	text-indent:-9999px;
+	background-image:url(http://www.wa-app.com/www/images/<?php echo $this->translate('image_link_4');?>);
+	background-repeat:no-repeat;
+	background-size:100% 100%;
+	}
+</style>
+</head>
+<body>
+    <audio id="new_message" controls style="display: none">
+  <source  src="/www/audio/incoming.ogg" type="audio/ogg">
+<!--  <source src="/www/audio/ringtone.mp3" type="audio/mpeg">
+Your browser does not support the audio element.-->
+</audio> 
+    <button style="display: none" id="new_message_button" onclick="document.getElementById('new_message').play()">Play the Audio</button>
+    <input type="hidden"  id="string_to_change"> 
+        <input type="hidden" id="login_user" value="<?php echo $this->loggedUserRow->userEmail;?>">
+        
+        <input type="hidden" id="chat_user_id" >
+        <input type="hidden" id="chat_nick_name"> 
+        <input type="hidden" id="chat_connect" name="chat_connect">
+        <input type="hidden" id="current_chat_user_id">
+        <input type="hidden" id="login_user_id" value="<?php echo $this->loggedUserRow->quickBloxId;?>">
+        <input type="hidden" id="chat_type" name="chat_type">
+        <input type="hidden" id="chat_dialog_id" name="chat_dialog_id">
+        <input type="hidden" id="current_user" value="<?php echo $this->loggedUserRow->userNickName;?>">
+        <input type="hidden" id="video_thumbnail" class="video_thumbnail" name="video_thumbnail">
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<?php 
+
+if($this->menu!='DELAYEDMESSAGE'){?>
+<!--    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-54f1059217d7f92c" async></script>-->
+<?php } ?>
+<div id="wrapper">
+
+  <div class="wrapBody">
+  <div class="wrapContainer">
+  <div class="containerBody">
+      <?php if($this->menu!='DELAYEDMESSAGE'){?>
+      <header id="header">
+        <div class="head webW clearfix">
+          <div class="logo"><a href="../index">All-in-WA homepage</a></div>
+          <!-- <div class="logo2"><a href="https://www.indiegogo.com/projects/all-in-one-wa-app-what-s-after-happening-now/x/4003395" target="_blank" >Indiegogo campaign</a></div> -->
+          
+          <div class="loginInfo clearfix">
+               <?php if($this->loggedUserRow):?> 
+                    <div class="li_user">
+                        <div class="photo"><a href="<?php echo $this->makeUrl('/profile/index') ?>"><img src="<?php if($this->loggedUserRow->userImage!=''){ echo $this->loggedUserRow->userImage;}else{ echo $this->makeUrl('/www/images/user_icon.png'); } ?>" alt="<?=$this->loggedUserRow->userFullName?>" title="<?=$this->loggedUserRow->userFullName?>"/></a></div>
+                        <?php echo $this->loggedUserRow->userFullName ?> <br><?php echo $this->loggedUserRow->getCountryName() ?>
+                    </div>
+              <?php endif?>
+            <div class="li_buttons">
+            	<ul class="clearfix">
+                     <?php if($this->loggedUserRow):?>
+			<li class="language"><a href="#"><?php echo $this->translate('layout_txt_5');?></a> 
+                        <li class="info_btn"><a href="#" style="text-indent:0;" onclick="$('#is_append').val(0);updateNotificationTime();getNotification();$('#infoicon').css('display','none');$('#infoicon').html('');" onblur=""><div style="width:20px;height:20px;border-radius:10px;text-align:center;background-color:#DB3C05;color:#FFFFFF;display:none;float: right;" id="infoicon"></div></a>
+                            <input type="hidden" name="is_append" id="is_append" value="0" />
+                            <div id="inset_form" name="inset_form"></div>
+                            <div class="lib_popup">
+                                    <div class="libp_arrow"></div>
+                                    <div class="libp_box">
+                                            <div class="libp_title"><span class="icon notify"></span><?php echo $this->translate('layout_txt_1');?></div>
+                                            <div class="libp_list">
+                                            <div id="notificationlist"></div>
+
+                                            </div>
+                                    </div>
+                            </div>
+                        </li>
+                    <?php endif?>
+                    <li class="settings_btn"><a href="#"><?php echo $this->translate('layout_txt_2');?></a>
+                        <div class="lib_popup">
+                        <div class="libp_arrow"></div>
+                        <div class="libp_box">
+                                <div class="libp_title"><?php echo $this->translate('layout_txt_2');?></div>
+                            <div class="libp_buttons">
+                                <ul>
+                                   
+                                    <li><a href="#"><?php echo $this->translate('layout_txt_3');?></a></li>
+                                    <li><a href="<?php echo $this->makeUrl('/help/terms') ?>"><?php echo $this->translate('index_txt_17');?></a></li>
+                                    <li><a href="<?php echo $this->makeUrl('/help/terms') ?>#privacy"><?php echo $this->translate('index_txt_18');?></a></li>
+                                    <li><a href="<?php echo $this->makeUrl('/help/faq') ?>"><?php echo $this->translate('index_txt_16');?></a></li>
+                                    <li><a href="#"><?php echo $this->translate('layout_txt_4');?></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        </div>
+                    </li>
+                     <?php if($this->loggedUserRow):?> 
+                        <li class="logout_btn"><a href="<?php echo $this->makeUrl('/index/logout') ?>"><?php echo $this->translate('layout_txt_5');?></a>
+                        </li>
+                    <?php endif?>
+                </ul>
+            </div>
+          </div>
+            <?php if($this->loggedUserRow):?> 
+                <div class="lanWrap">
+                   <!-- <div class="lanButton"><span class="icon"></span> <?php echo $this->setActiveLanguage();?> <span class="arrow"></span> </div>-->
+              <div class="lanBox">
+                <div class="lbTitle"><span class="icon"></span><?php echo $this->setActiveLanguage();?><span class="arrow"></span></div>
+                <div class="lanList">
+                  <ul class="clearfix">
+                        <li class="active"><a href="/chat/chat?l=en"><img src="/www/images/flags/en.gif" alt=""/> English</a></li>
+                            <li><a href="?l=es"><img src="/www/images/flags/es.gif" alt=""/> Español</a></li>
+                            <li><a href="?l=ar"><img src="/www/images/flags/ab.gif" alt=""/> العربية</a></li>
+                            <li><a href="?l=de"><img src="/www/images/flags/de.gif" alt=""/> Deutsch</a></li>
+                            <li><a href="?l=nl"><img src="/www/images/flags/nl.gif" alt=""/> Nederlands</a></li>
+                            <li><a href="?l=it"><img src="/www/images/flags/it.gif" alt=""/> Italiano</a></li>
+                            <li><a href="?l=pt_br"><img src="/www/images/flags/br.gif" alt=""/> Brasileiro</a></li>
+                            <li><a href="?l=tr"><img src="/www/images/flags/tr.gif" alt=""/> Türkçe</a></li>
+                            <li><a href="?l=id"><img src="/www/images/flags/id.gif" alt=""/> Bahasa Indonesia</a></li>
+                            <li><a href="?l=zh_tw"><img src="/www/images/flags/mm.gif" alt=""/> 繁體中文</a></li>
+                            <li><a href="?l=fr"><img src="/www/images/flags/fr.gif" alt=""/> Français</a></li>
+                            <li><a href="?l=ja"><img src="/www/images/flags/jp.gif" alt=""/> 日本語</a></li>
+                            <li><a href="?l=zh_cn"><img src="/www/images/flags/cn.gif" alt=""/> 简体中文</a></li>
+                            <li><a href="?l=ko"><img src="/www/images/flags/ko.gif" alt=""/> 한국어</a></li>
+                            <li><a href="?l=th"><img src="/www/images/flags/th.gif" alt=""/> ภาษาไทย</a></li>
+                            <li><a href="?l=pl"><img src="/www/images/flags/pl.gif" alt=""/> Polski</a></li>
+                            <li><a href="?l=vi"><img src="/www/images/flags/vn.gif" alt=""/> Tiếng Việt</a></li>
+                            <li><a href="?l=cs"><img src="/www/images/flags/cz.gif" alt=""/> Česky</a></li>
+                            <li><a href="?l=da"><img src="/www/images/flags/dk.gif" alt=""/> Dansk</a></li>
+                            <li><a href="?l=lv"><img src="/www/images/flags/lv.gif" alt=""/> Latviešu</a></li>
+                            <li><a href="?l=sk"><img src="/www/images/flags/sv.gif" alt=""/> Slovenčina</a></li>
+                            <li><a href="?l=ro"><img src="/www/images/flags/ro.gif" alt=""/> Română</a></li>
+                            <li><a href="?l=el"><img src="/www/images/flags/il.gif" alt=""/> Ελληνικά</a></li>
+                            <li><a href="?l=bg"><img src="/www/images/flags/bg.gif" alt=""/> Български</a></li>
+                            <li><a href="?l=hr"><img src="/www/images/flags/hr.gif" alt=""/> Hrvatski</a></li>
+                            <li><a href="?l=ms"><img src="/www/images/flags/my.gif" alt=""/> Bahasa Melayu</a></li>
+                            <li><a href="?l=sr"><img src="/www/images/flags/sb.gif" alt=""/> српски</a></li>
+                            <li><a href="?l=ru"><img src="/www/images/flags/ru.gif" alt=""/> Pусский</a></li>
+                            <li><a href="?l=fi"><img src="/www/images/flags/fi.gif" alt=""/> suomi</a></li>
+                            <li><a href="?l=hu"><img src="/www/images/flags/hu.gif" alt=""/> Magyar</a></li>
+                            <li><a href="?l=fa"><img src="/www/images/flags/fa.gif" alt=""/> فارسی</a></li>
+                            <li><a href="?l=nb"><img src="/www/images/flags/no.gif" alt=""/> Norsk</a></li>
+                            <li><a href="?l=mk"><img src="/www/images/flags/mk.gif" alt=""/> Македонски</a></li>
+                            <li><a href="?l=ca"><img src="/www/images/flags/ct.gif" alt=""/> Català</a></li>
+                      </ul>
+                    </div>
+                    <div class="lanFoot"><a href="#"><?php echo $this->translate('index_txt_82');?></a></div>
+                  </div>
+                </div>
+          <?php endif?>
+        </div>
+      </header>
+      
+       <?php if($this->loggedUserRow){?> 
+      <menu id="mainNav" class="clearfix">
+      	<ul>
+<li><a href="<?php echo $this->makeUrl('/chat/chat') ?>"><?php echo $this->translate('layout_txt_11');?></a></li>
+            <li <?php  if($this->menu == "MYWA" ||  $this->menu == "LISTWA"):?> class="active" <?php endif ?> ><a href="<?php echo $this->makeUrl('/mywa') ?>"><?php echo $this->translate('layout_txt_6');?></a></li>
+            <li <?php if($this->menu == "FRIENDS"):?> class="active" <?php endif ?> ><a href="<?php echo $this->makeUrl('/friends') ?>"><?php echo $this->translate('layout_txt_8');?></a></li>
+            <li <?php if($this->menu == "TRUSTEES"):?> class="active" <?php endif ?> ><a href="<?php echo $this->makeUrl('/trustees') ?>"><?php echo $this->translate('layout_txt_7');?></a></li>
+            <li><a href="#"><?php echo $this->translate('layout_txt_9');?></a></li>
+            <li><a href="#"><?php echo $this->translate('layout_txt_10');?></a></li>
+        </ul>
+      </menu>
+       <?php }
+      }?>
+      
+      
+      <div id="container">
+          <?php if($this->menu!='DELAYEDMESSAGE'){ ?>
+          <?php echo $this->render("bread-crumbs.phtml")?>
+          <?php }?>
+          
+          <div id="short_time_msg" class="fade_out">
+            <div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+              <strong> <span id="msg" > </span> </strong>    
+            </div>
+          </div>   
+          <?php echo $this->layout()->content ?>
+      </div>
+  </div>
+  </div>
+  </div>
+  
+  <?php if($this->menu!='DELAYEDMESSAGE'){ ?>
+  <footer id="footer">
+    <div class="fContent">
+      <div class="webW clearfix">
+        <div class="faboutInfo">
+          <h4><?php echo $this->translate('index_txt_12');?></h4>
+          <p><strong>All-in-WA</strong> <?php echo $this->translate('index_txt_6');?>, <?php echo $this->translate('index_txt_6a');?>, <?php echo $this->translate('index_txt_6b');?> <?php echo $this->translate('index_txt_13');?> <a href="<?php echo $this->makeUrl('/help/features') ;?>"><?php echo $this->translate('index_txt_14');?>...</a></p>
+        </div>
+        <div class="fmenu clearfix">
+          <ul class="clearfix">
+            <li class="title">All-in-WA</li>
+            <li><a href="<?php echo $this->makeUrl('/help/features') ;?>"><?php echo $this->translate('index_txt_15');?></a></li>
+            <li><a href="<?php echo $this->makeUrl('/help/faq') ?>"><?php echo $this->translate('index_txt_16');?></a></li>
+            <li><a href="<?php echo $this->makeUrl('/help/terms') ?>"><?php echo $this->translate('index_txt_17');?></a></li>
+            <li><a href="<?php echo $this->makeUrl('/help/terms') ?>#privacy"><?php echo $this->translate('index_txt_18');?></a></li>
+            <li><a href="#"><?php echo $this->translate('index_txt_19');?> </a></li>
+          </ul>
+          <ul class="clearfix">
+            <li class="title">Contact</li>
+            <li><a href="<?php echo $this->makeUrl('/help/contact') ?>"><?php echo $this->translate('index_txt_21');?></a></li>
+            <li><a href="<?php echo $this->makeUrl('/help/aboutus') ?>"><?php echo $this->translate('index_txt_22');?></a></li>
+            <li><a href="https://www.facebook.com/WAappbook" target="_blank"><?php echo $this->translate('index_txt_23');?></a></li>
+            <li><a href="https://twitter.com/waapptweet" target="_blank"><?php echo $this->translate('index_txt_24');?></a></li>
+          </ul>
+          <ul class="clearfix">
+            <li class="title"><?php echo $this->translate('index_txt_25');?></li>
+            <li><a href="#"><?php echo $this->translate('index_txt_26');?></a></li>
+            <li><a href="#"><?php echo $this->translate('index_txt_26a');?></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="webW clearfix">
+      <div class="ftxt">&copy; 2015 <a href="../index">WA-media</a>. <?php echo $this->translate('index_txt_27');?></div>
+    </div>
+  </footer>
+  <?php } ?>
+  
+</div>
+    <script type="text/javascript">
+        function shortTimeMessage(msg){
+            
+            $("#short_time_msg #msg").html(msg);
+            $("#short_time_msg").removeClass("fade_out");
+            $("#short_time_msg").addClass("fade_in");
+            
+            setTimeout( function(){ 
+                $("#short_time_msg").addClass("fade_out");
+                $("#short_time_msg").removeClass("fade_in");
+             }
+             , 3000 );
+        }
+        
+        $(document).ready(function(){
+            $("#short_time_msg .close").click(function(){
+               $("#short_time_msg").addClass("fade_out");
+               $("#short_time_msg").removeClass("fade_in");
+            });
+            
+        });
+       
+    </script>
+
+<?php if($this->loggedUserRow):?> 
+                        <script>
+                           // confirmRequest(0);
+/***** After every 5 sec getNotificationCount() executes, check whether new notification arrived or not, if yes, show count. *****/
+setInterval(function () {getNotificationCount()}, 5000);
+
+
+  function confirmRequest(receiver_id){
+       var config = {
+      ssl: false,
+
+    endpoints: {
+      api: 'apiwaapp.quickblox.com',
+      chat:'chatwaapp.quickblox.com',
+      muc: 'muc.chatwaapp.quickblox.com',
+     
+    },
+    chatProtocol: {
+      bosh: "http://chatwaapp.quickblox.com:5280",
+      websocket: 'ws://chatwaapp.quickblox.com:5290'
+    },
+    debug: true,
+    timeout: 1000000
+  };
+  
+  QB.init(QBAPP.appID, QBAPP.authKey, QBAPP.authSecret,config);
+    // QuickBlox session creation
+    QB.createSession(function (err, result) {
+        if (err) {
+            console.log(err.detail);
+        } else {
+            //changeInputFileBehavior();
+            //updateTime();
+
+           
+        }
+    });
+
+ 
+       var user_jid = getJIDD('<?php echo $this->loggedUserRow->quickBloxId;?>');
+  	QB.chat.connect({jid: user_jid, password: '12345678'}, function(err, roster) {
+            console.log(roster);
+            var contact_jid = getJIDD(receiver_id);
+            QB.chat.roster.add(contact_jid, function() {
+              console.log('Roster request accept');
+          });
+       
+
+});
+
+}
+
+function getJIDD(id){
+    var jid = id+"-"+QBAPP.appID+"@"+chatConfig.server
+    return jid;
+}
+</script>
+<?php endif?>
+
+</body>
+</html>
