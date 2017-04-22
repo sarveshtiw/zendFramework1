@@ -1,0 +1,277 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title></title>
+        <link href="<?php echo $this->makeUrl('/www/css/layout.css') ?>" rel="stylesheet" type="text/css" />
+        <link href="<?php echo $this->makeUrl('/www/css/custom.css') ?>" rel="stylesheet" type="text/css" />
+        <link href="<?php echo $this->makeUrl('/www/wa-app/jquery.ui.all.css') ?>" rel="stylesheet" type="text/css" />
+        <link href="<?php echo $this->makeUrl('/www/css/inner_layout.css') ?>" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
+    </head>
+<body>
+<div class="pdfContainer">
+    <div class="pdfBody"> 
+        <?php if(!empty($this->data['signature_image'])): ?>
+        <p><?php echo $this->translate('testament_pdf_txt1'); ?>
+            <span><?php echo ucfirst($this->data['gender']); ?></span> <?php echo $this->translate('testament_pdf_txt2'); ?>
+            <span><?php echo $this->data['count_witness']; ?></span> <?php echo $this->translate('testament_pdf_txt3'); ?>
+        </p>
+        <?php endif; ?> 
+        
+        <p><?php echo $this->translate('testament_pdf_txt4'); ?>, <span><?php echo ucfirst(urldecode($this->data['full_name'])); ?></span>, <?php echo $this->translate('testament_pdf_txt5'); ?> <span><?php echo ucfirst(urldecode($this->data['address1'])); ?><?php if(!empty($this->data['address2'])) { echo ', '.ucwords(urldecode($this->data['address2'])); } ?>, <?php echo ucfirst(urldecode($this->data['citizen_country'])); ?></span>
+            <?php echo $this->translate('testament_pdf_txt6'); ?> <span><?php if(!empty($this->data['nationality'])) { echo ucwords($this->data['nationality']); } ?></span> <span><?php echo ucfirst($this->data['id_type']); ?></span> <?php echo $this->translate('testament_pdf_txt7'); ?> <span><?php echo $this->data['id_number']; ?></span> <?php echo $this->translate('testament_pdf_txt8'); ?> <span><?php echo urldecode($this->data['wa_username']); ?></span>, <?php echo $this->translate('testament_pdf_txt9'); ?>,
+            <?php echo $this->translate('testament_pdf_txt10'); ?>
+        </p>
+        <?php $row = $this->data['representative_set'];        
+                $res_gender = '';
+                $gender =  $this->translate('Mr');
+                if(strcasecmp($row[0]['res_gender'],$gender) == 0) {
+                    $res_gender =  $this->translate('he');
+                }else{
+                    $res_gender = $this->translate('she');
+                }
+                
+                if(strcasecmp($row[1]['res_gender'],$gender) == 0) {
+                    $res_gender1 = $this->translate('he');
+                }else{
+                    $res_gender1 = $this->translate('she');
+                }
+        ?>
+        <p><?php echo $this->translate('testament_pdf_txt11'); ?> <span><?php echo ucwords($row[0]['res_gender'].'. '.$row[0]['res_name']); ?></span> <?php echo $this->translate('testament_pdf_txt22'); ?> <span><?php echo ucwords($row[0]['res_address1']); ?> <?php if(!empty($row[0]['res_address2'])) { echo ', '.ucwords($row[0]['res_address2']); } ?></span>, <span><?php echo ucfirst(urldecode($row[0]['res_country'])); ?></span>
+            <?php echo $this->translate('testament_pdf_with'); ?> <?php echo $this->translate('testament_pdf_txt12'); ?> <span><?php echo $row[0]['res_phone_number'] ?></span> <?php echo $this->translate('testament_pdf_and'); ?> <?php echo $this->translate('testament_pdf_with'); ?> <?php echo $this->translate('testament_pdf_txt13'); ?>
+            <span><?php echo $row[0]['res_wauseremail'] ?></span>, <?php echo $this->translate('testament_pdf_txt14'); ?>
+            <?php if($row[0]['res_gender']){ echo $res_gender; } ?> <?php echo $this->translate('testament_pdf_txt16'); ?> 
+            <span> <?php echo ucwords($row[1]['res_gender'].'. '.$row[1]['res_name']); ?></span> <?php echo $this->translate('testament_pdf_txt22'); ?> <span><?php echo ucwords($row[1]['res_address1']); ?>
+            <?php if(!empty($row[1]['res_address2'])) { echo ', '.ucwords($row[1]['res_address2']); } ?>, <?php echo ucfirst(urldecode($row[1]['res_country'])); ?></span>
+            <?php echo $this->translate('testament_pdf_with'); ?> <?php echo $this->translate('testament_pdf_txt12'); ?> <span><?php echo $row[1]['res_phone_number'] ?> </span> <?php echo $this->translate('testament_pdf_and'); ?> <?php echo $this->translate('testament_pdf_with'); ?> <?php echo $this->translate('testament_pdf_txt13'); ?>
+            <span><?php echo $row[1]['res_wauseremail'] ?>,</span> <?php echo $this->translate('testament_pdf_txt23'); ?> <?php if($row[1]['res_gender']){ echo $res_gender1; } ?> <?php echo $this->translate('testament_pdf_txt24'); ?>
+        </p>       
+        <p>
+            <?php echo $this->translate('testament_pdf_txt25'); ?>
+        </p>
+        <p>
+            <u><?php echo $this->translate('testament_pdf_txt26'); ?>:</u>
+        </p>
+        
+        <?php if(!empty($this->data['birth_certificate_place'])): ?>
+            <p> <?php echo $this->translate('testament_pdf_txt27'); ?> <span><?php echo strtolower(urldecode($this->data['birth_certificate_place'])); ?> </span></p>
+        <?php endif; ?>
+        
+        <?php if(!empty($this->data['life_insurance_policies'])): ?>
+            <p> <?php echo $this->translate('testament_pdf_txt28'); ?> <span><?php echo strtolower(urldecode($this->data['life_insurance_policies'])); ?></span></p>
+        <?php endif; ?>
+        
+        <?php if(!empty($this->data['deposit_account_books'])): ?>
+            <p> <?php echo $this->translate('testament_pdf_txt29'); ?> <span><?php echo strtolower(urldecode($this->data['deposit_account_books'])); ?></span></p>
+        <?php endif; ?>
+        
+        <?php if(!empty($this->data['any_property'])): ?>
+            <p> <?php echo $this->translate('testament_pdf_txt30'); ?> <span><?php echo strtolower(urldecode($this->data['any_property'])); ?></span></p>
+        <?php endif; ?>
+            
+        <?php if(!empty($this->data['other_property'])): ?>
+            <p> <span><?php echo ucfirst(urldecode($this->data['other_property'])); ?></span></p>
+        <?php endif; ?>
+            
+        <?php if(!empty($this->data['any_other_property'])): ?>
+            <p> <span><?php echo ucfirst(urldecode($this->data['any_other_property'])); ?></span></p>
+        <?php endif; ?>
+        
+        <?php if(!empty($this->data['account_set'])): ?>
+            <p> <?php echo $this->translate('testament_pdf_txt32'); ?>  <span><?php echo $this->data['count_bankaccount']; ?></span> <?php echo $this->translate('testament_pdf_txt33'); ?>: <br />
+            <?php
+               $i = 0;
+               $count = $this->data['count_bankaccount'];
+               
+                foreach($this->data['account_set'] as $account): ?>
+                <span><?php echo strtoupper($account['bank_name']); ?></span> <br />
+                     <?php echo $this->translate('testament_pdf_txt34'); ?> : <span><?php echo ucfirst($account['bank_address']); ?></span> <br />
+                     <?php echo $this->translate('testament_pdf_txt35'); ?> : <span><?php echo strtoupper($account['bank_account_number']); ?></span> <br />
+                     <?php 
+                        if(++$i !== $count)
+                        {
+                          echo 'and'."<br />";
+                        }
+                     ?>
+                 <?php endforeach; ?>
+        </p>
+        <?php endif; ?>
+                
+        <?php if(!empty($this->data['active_investments'])): ?>
+        <p>
+            <?php echo $this->translate('testament_pdf_txt40'); ?>:<br />
+            <?php $other = $this->data['active_investments']; ?>
+            <span><?php echo $other[0]['description']; ?></span>
+        </p>
+        <?php endif; ?>
+        
+        <?php if(!empty($this->data['other_possessions'])): ?>
+        <p> ___________ <br />
+            <?php echo $this->translate('testament_pdf_txt41'); ?>:<br />
+            <?php $other = $this->data['other_possessions']; ?>
+            <span><?php echo $other[0]['description']; ?></span><br />
+        </p>
+        <?php endif; ?>
+        
+        <?php if(!empty($this->data['social_account_set'])): ?>
+        <p>
+            <?php echo $this->translate('testament_pdf_txt42'); ?>:<br />
+            <?php 
+                $i = 0;
+                $count  = $this->data['count_social_account'];
+                $status = '';
+                $user   = '';
+
+                foreach($this->data['social_account_set'] as $account):
+                    if($account['is_status'] == 1) {
+                        $status = 'deleted';
+                    }else if($account['is_status'] == 2){
+                        $status = 'memorialized';
+                    }else if($account['is_status'] == 3){
+                        $status = 'managed by';
+                    }
+
+                    if(!empty($account['managed_username'])){
+                        $user = $account['managed_username'];
+                    } else {
+                        $user = '';
+                    }
+                ?>
+                    <?php echo $this->translate('testament_pdf_txt43'); ?>:  <span><?php echo ucfirst($account['url']); ?></span><br />
+                    <?php echo $this->translate('testament_pdf_txt44'); ?>:  <span><?php echo $account['username']; ?></span><br />
+                    <?php echo $this->translate('testament_pdf_txt45'); ?>:  <span><?php echo $account['password']; ?></span><br />
+                    <?php echo $this->translate('testament_pdf_txt46'); ?>:  <span><?php echo $account['security_ques']; ?></span><br />
+                    <?php echo $this->translate('testament_pdf_txt47'); ?> <?php echo $status; if(!empty($user)){ echo ' '.$user; } echo '.'; ?><br />
+                    <?php 
+                        if(++$i !== $count)
+                        {
+                          echo 'and'."<br />";
+                        }
+                    ?>
+                <?php endforeach; ?>
+        </p>
+        <?php endif; ?>
+        
+        <p>
+            <?php if(!empty($this->data['estate_devise_set'])): ?>
+            <?php echo $this->translate('testament_pdf_txt48'); ?>:<br />
+                <?php foreach ($this->data['estate_devise_set'] as $row):  ?>
+                <?php echo $this->translate('testament_pdf_txt49'); ?> <span><?php echo ucwords($row['item_name'].' '.'to '.$row['beneficiairy']); ?></span><br />
+                <?php endforeach; ?>
+            <?php endif; ?>
+            
+            <?php if(!empty($this->data['estate_per_devise_set'])): ?>    
+            <?php echo $this->translate('testament_pdf_txt50'); ?>:<br />
+               <ul class="divided"> 
+                <?php 
+                    $i = 0;
+                    $count = $this->data['count_per_devise_set'];
+                    foreach ($this->data['estate_per_devise_set'] as $row): 
+                        if(!empty($row['beneficiairy'])):
+                ?>
+                         <li><?php echo $row['percentage'].'%'.' '. '<span>'.ucfirst($row['beneficiairy']).'</span>.'; ?> </li>
+                        <?php endif; ?>
+                     <?php endforeach; ?>
+             </ul>
+                <?php if(!empty($this->data['estatePerRemaining'])):
+                        echo $this->translate('testament_pdf_txt17');
+                        echo ' '.$this->data['estatePerRemaining'].'% ';
+                        echo $this->translate('testament_pdf_txt51').'.';
+                ?>
+                    <?php endif; ?>
+            <?php endif; ?>
+        </p>
+        <p>
+            <?php echo $this->translate('testament_pdf_txt52'); ?>: <br />
+            <?php if(!empty($this->data['testament_special_request'])): ?>  
+                <span><?php echo nl2br(ucfirst(urldecode($this->data['testament_special_request']))); ?>.</span>
+            <?php endif; ?>
+        </p>
+        <p>
+            <?php echo $this->translate('testament_pdf_txt53'); ?>
+        </p>
+        <p>
+            <?php echo $this->translate('testament_pdf_txt54'); ?> <span class="pdf-text-auto"> <?php echo ucfirst($this->data['gender']); ?> </span> <?php echo $this->translate('testament_pdf_txt55'); ?>
+        </p>
+        <div class="large-text-label">
+            <center><div class="forget_heading"><?php echo $this->translate('testament_pdf_txt39'); ?></div></center>
+        </div>
+        <p>
+            <?php echo $this->translate('testament_pdf_txt56'); ?> <span class="pdf-text-auto"> <?php echo $this->data['gender']; ?> </span> <?php echo $this->translate('testament_pdf_as'); ?> <?php echo $this->data['is_gender']; ?> <?php echo $this->translate('testament_pdf_txt57'); ?> <?php echo $this->data['is_gender']; ?> <?php echo $this->translate('testament_pdf_txt58'); ?> <?php echo $this->data['is_gender']; ?> <?php echo $this->translate('testament_pdf_txt59'); ?><br />
+            <?php echo $this->translate('testament_pdf_txt60'); ?> <?php echo $this->data['gender']; ?> <?php echo $this->translate('testament_pdf_txt61'); ?>: <br />
+        <ol>
+            <li><?php echo $this->translate('testament_pdf_txt62'); ?> <span class="pdf-text-auto"> <?php echo $this->data['gender']; ?></span> <?php echo $this->translate('testament_pdf_txt63'); ?> <?php echo $this->data['is_gender']; ?> <?php echo $this->translate('testament_pdf_txt19'); ?>;</li>
+            <li><?php echo $this->translate('testament_pdf_txt64'); ?> <span class="pdf-text-auto"> <?php echo $this->data['gender']; ?></span> <?php echo $this->translate('testament_pdf_txt65'); ?> <?php echo $this->data['is_gender1']; ?> <?php echo $this->translate('testament_pdf_txt66'); ?> <?php echo $this->data['is_gender']; ?> <?php echo $this->translate('testament_pdf_txt67'); ?>;</li>
+            <li><?php echo $this->translate('testament_pdf_txt62'); ?> <span class="pdf-text-auto"> <?php echo $this->data['gender']; ?> </span> <?php echo $this->translate('testament_pdf_txt68'); ?> <?php echo $this->data['is_gender']; ?> <?php echo $this->translate('testament_pdf_txt69'); ?>;</li>
+            <li><?php echo $this->translate('testament_pdf_txt70'); ?> <span class="pdf-text-auto"> <?php echo $this->data['gender']; ?></span> <?php echo $this->translate('testament_pdf_txt71'); ?>;</li>
+            <li><?php echo $this->translate('testament_pdf_txt62'); ?> <span class="pdf-text-auto"> <?php echo $this->data['gender']; ?> </span> <?php echo $this->translate('testament_pdf_txt72'); ?></li>
+            <li><?php echo $this->translate('testament_pdf_txt73'); ?> <?php echo $this->data['is_gender']; ?> </span> <?php echo $this->translate('testament_pdf_txt74'); ?> <span class="pdf-text-auto"> <?php echo $this->data['gender']; ?> </span> <?php echo $this->translate('testament_pdf_txt75'); ?></li>
+        </ol>
+        <?php 
+            $mydatetime    = strtotime(urldecode($this->data['user_modification_date']));             
+            $yy     = date('Y', $mydatetime);
+            $mm     = date('F', $mydatetime);
+            $dd     = date('d', $mydatetime);
+            $time   = date("H",$mydatetime);
+            $minute = date("i",$mydatetime);
+        ?>
+        <?php if(!empty($this->data['created_address'])): ?> 
+        <p>
+            <?php echo $this->translate('testament_pdf_txt76'); ?> <span><?php echo $time.':'.$minute; ?></span> <?php echo $this->translate('testament_pdf_txt77'); ?> <span><?php echo $dd."<sup>th</sup>"; ?></span> <?php echo $this->translate('testament_pdf_txt78'); ?> <span><?php echo $mm.' '.$yy; ?> </span>
+            <?php echo $this->translate('testament_pdf_txt66'); ?> <span><?php echo urldecode($this->data['created_address']); ?></span>, <?php echo $this->translate('testament_pdf_txt20'); ?> <span><?php echo $this->translate('testament_pdf_txt18'); ?> <?php echo $this->data['ip_address'].'.'; ?></span>
+            <?php echo $this->translate('testament_pdf_txt79'); ?> <?php echo $this->data['gender']; ?>:  <br />
+            <?php if(!empty($this->data['recorded_audio'])): ?>  
+            <b> <?php echo $this->translate('testament_pdf_txt80'); ?>: </b>  <?php echo $this->translate('testament_pdf_txt81'); ?> <br />
+            <?php endif; ?>        
+        <?php endif; ?>
+         
+         <?php if(!empty($this->data['signature_image'])): ?>  
+            <div class="img-icon">
+                <img src="<?php echo $this->data['signature_image']; ?>" alt="img" height="40px" width="80px">
+            </div>
+            <?php endif; ?>
+        </p>
+        
+        <?php if(!empty($this->data['testaments_witness_set'])): ?>  
+        <p>
+            <?php 
+                $i   = 1; 
+                $num = '';
+                
+                if($i == 1){
+                    $num = 'st';
+                }else if($i == '2'){
+                    $num1 = 'nd';
+                }else if($i == '3'){
+                    $num2 = 'rd';
+                }else{
+                    $num2 = 'th';
+                }
+                    
+                foreach ($this->data['testaments_witness_set'] as $row): 
+                  $count = $i++;
+                  echo 'WITNESS '. $count."<br />";                    
+            ?>
+                    <div class="container">                        
+                        <div class="left-section"> <?php echo $this->translate('testament_pdf_txt82'); ?>: <?php echo ucfirst($row['name']); ?></div>     <div class="right-section"><?php echo ucfirst($row['id_type']); ?> <?php echo $this->translate('testament_pdf_txt84'); ?>: <?php echo $row['id_number']; ?></div><div class="clear"></div>
+                        <div class="left-section"> <?php echo $this->translate('testament_pdf_txt83'); ?>: <?php echo $row['username']; ?></div>  <div class="right-section"> <?php echo $this->translate('testament_pdf_txt85'); ?>: <?php echo date('d F Y', strtotime($row['modification_date'])); ?></div>
+                    </div>
+                    <?php echo $this->translate('testament_pdf_txt86'); ?> <?php echo $count.'<sup>'.$num.'</sup> witness'; ?>:  <br />
+                    <?php if(!empty($row['recorded_file_link'])): ?>  
+                     <b> <?php echo $this->translate('testament_pdf_txt80'); ?>: </b>  <?php echo $this->translate('testament_pdf_txt81'); ?> <br />
+                    <?php endif; ?>
+
+                    <?php if(!empty($row['signature_image_link'])): ?>  
+                    <div class="img-icon">
+                        <img src="<?php echo $row['signature_image_link']; ?>" alt="img" height="40px" width="80px">
+                    </div>
+                        <div class="clear"></div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+        </p>
+        <?php endif; ?>
+    </div>
+</div>
+</body>
+</html>

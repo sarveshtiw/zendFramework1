@@ -1,1 +1,69 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title></title>
+        <link href="<?php echo $this->makeUrl('/www/css/layout.css') ?>" rel="stylesheet" type="text/css" />
+        <link href="<?php echo $this->makeUrl('/www/css/custom.css') ?>" rel="stylesheet" type="text/css" />
+        <link href="<?php echo $this->makeUrl('/www/wa-app/jquery.ui.all.css') ?>" rel="stylesheet" type="text/css" />
+        <link href="<?php echo $this->makeUrl('/www/css/inner_layout.css') ?>" rel="stylesheet" type="text/css" />
+    </head>
+<body>
+<div class="pdfContainer">
+    <div class="pdfBody"> 
+        <p><b><?php echo $this->translate('witness_pdf_intro'); ?></b> <br /><?php echo $this->translate('witness_pdf_txt1'); ?></p>
+        <p><span class="pdf-text1"><?php echo ucfirst($this->data['gender']); ?> <br />
+            <?php echo ucfirst($this->data['full_name']); ?>,</span> <?php echo $this->translate('witness_pdf_txt32'); ?> 
+            <span><?php echo ucfirst($this->data['address1']); ?> <?php if(!empty($this->data['address2'])) { echo ', '.ucwords($this->data['address2']); } ?></span>,
+            <?php echo $this->translate('witness_pdf_txt2'); ?> <span><?php echo $this->data['wa_username']; ?></span> <?php echo $this->translate('witness_pdf_txt3'); ?> <span><?php echo $this->data['phone_number']; ?></span>, 
+            <?php echo $this->translate('witness_pdf_txt4'); ?> <?php echo $this->data['is_gender2']; ?> 
+            <?php echo $this->translate('witness_pdf_txt5'); ?> <?php echo $this->data['is_gender']; ?> <?php echo $this->translate('witness_pdf_txt6'); ?> <?php echo $this->data['is_gender']; ?> <?php echo $this->translate('witness_pdf_last_will'); ?>
+        </p>        
+        <div class="large-text-label">
+            <center><div class="forget_heading"><u><?php echo $this->translate('witness_pdf_txt7'); ?></u></div></center>
+        </div>
+        <p><?php echo $this->translate('witness_pdf_txt8'); ?>
+            <?php echo $this->data['gender']; ?> <?php echo $this->translate('witness_pdf_txt_as'); ?> <?php echo $this->data['is_gender']; ?> <?php echo $this->translate('witness_pdf_txt9'); ?> <?php echo $this->data['is_gender']; ?> <?php echo $this->translate('witness_pdf_txt10'); ?> <?php echo $this->data['is_gender']; ?> <?php echo $this->translate('witness_pdf_txt11'); ?>
+        </p>
+        <p>
+          <?php echo $this->translate('witness_pdf_txt12'); ?>:        
+            <ol>
+                <li><?php echo $this->translate('witness_pdf_txt13'); ?> <?php echo $this->data['gender']; ?> <?php echo $this->translate('witness_pdf_txt14'); ?> <?php echo $this->data['is_gender']; ?> <?php echo $this->translate('witness_pdf_txt15'); ?>;</li>
+                <li><?php echo $this->translate('witness_pdf_txt16'); ?> <?php echo $this->data['gender']; ?> <?php echo $this->translate('witness_pdf_txt17'); ?> <?php echo $this->data['is_gender']; ?> <?php echo $this->translate('witness_pdf_txt18'); ?> <?php echo $this->data['is_gender1']; ?> <?php echo $this->translate('witness_pdf_txt19'); ?> <?php echo $this->data['is_gender']; ?> <?php echo $this->translate('witness_pdf_txt20'); ?>;</li>
+                <li><?php echo $this->translate('witness_pdf_txt13'); ?> <?php echo $this->data['gender']; ?> <?php echo $this->translate('witness_pdf_txt21'); ?> <?php echo $this->data['is_gender']; ?> <?php echo $this->translate('witness_pdf_txt22'); ?>;</li>
+                <li><?php echo $this->translate('witness_pdf_txt23'); ?> <?php echo $this->data['gender']; ?> <?php echo $this->translate('witness_pdf_txt24'); ?>;</li>
+                <li><?php echo $this->translate('witness_pdf_txt13'); ?> <?php echo $this->data['gender']; ?> <?php echo $this->translate('witness_pdf_txt25'); ?></li>
+                <li><?php echo $this->translate('witness_pdf_txt26'); ?> <?php echo $this->data['is_gender']; ?> <?php echo $this->translate('witness_pdf_txt27'); ?> <?php echo $this->data['gender']; ?> <?php echo $this->translate('witness_pdf_txt28'); ?></li>
+                <li><?php echo $this->translate('witness_pdf_txt29'); ?> <?php echo $this->data['gender'].'.'; ?></li>
+            </ol> 
+         <?php
+            $mydatetime    = strtotime($this->data['modification_date']);             
+            $yy     = date('Y', $mydatetime);
+            $mm     = date('F', $mydatetime);
+            $dd     = date('d', $mydatetime);
+            $time   = date("H",$mydatetime);
+            $minute = date("i",$mydatetime);            
+         ?>
+            <?php echo $this->translate('witness_pdf_txt30'); ?> <span><?php echo $time.':'.$minute; ?></span> <?php echo $this->translate('witness_pdf_txt31'); ?> <span><?php echo $dd."<sup>".$this->translate('witness_pdf_txt33');"</sup>"; ?></span> <?php echo $this->translate('witness_pdf_txt34'); ?> <span><?php echo $mm.' '.$yy; ?></span>
+        <span><?php echo urldecode($this->data['address']); ?>,</span> <?php echo $this->translate('witness_pdf_txt42'); ?> <span><?php echo $this->translate('witness_pdf_txt43'); ?> <?php echo $this->data['ip_address'].'.'; ?> <?php //echo $this->translate('witness_pdf_txt_etc'); ?></span>
+        </p>
+        <p>
+            <div class="container">                        
+                <div class="left-section"> <?php echo $this->translate('witness_pdf_txt35'); ?>: <?php echo ucfirst($this->data['name']); ?></div>         <div class="right-section"> <?php echo $this->translate('witness_pdf_txt37'); ?> <?php echo ucfirst($this->data['id_type']).' No: '. $this->data['id_number']; ?></div><div class="clear"></div>
+                <div class="left-section"> <?php echo $this->translate('witness_pdf_txt36'); ?>: <?php echo $this->data['username']; ?></div>     <div class="right-section"><?php echo $this->translate('witness_pdf_txt38'); ?>: <?php echo date('d F Y', strtotime($this->data['modification_date'])); ?></div>
+            </div>             
+            <?php if(!empty($this->data['recorded_file_link'])): ?>  
+                     <b><?php echo $this->translate('witness_pdf_txt39'); ?>: </b> <?php echo $this->translate('witness_pdf_txt40'); ?> <br />
+            <?php endif; ?>
+        </p>
+        <p>
+           <?php echo $this->translate('witness_pdf_txt41'); ?>:          
+            <div class="img-icon">
+                <img src="<?php echo $this->data['signature_image']; ?>" alt="img" height="60px" width="70px">
+            </div>
+        </p>
+    </div>
+</div>
+</body>
+</html>
 
